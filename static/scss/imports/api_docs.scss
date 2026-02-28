@@ -253,7 +253,6 @@
   color: var(--api-muted) !important;
 }
 
-#swagger-ui .swagger-ui .opblock-summary-control,
 #swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard,
 #swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button,
 #swagger-ui .swagger-ui .opblock-control-arrow {
@@ -389,3 +388,5 @@
     gap: 8px !important;
   }
 }
+
+#swagger-ui .swagger-ui .opblock-summary-control{width:auto!important;min-width:0!important;height:auto!important;min-height:0!important;display:block!important;padding:0!important;margin:0!important}
