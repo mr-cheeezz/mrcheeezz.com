@@ -6,10 +6,13 @@ cssmin==0.2.0
 Django==4.1.4
 django-cors-headers==3.14.0
 django-assets==2.0
+django-admin-interface==0.30.1
+django-colorfield==0.11.0
 django-filebrowser==4.0.2
 django-grappelli==3.0.6
 django-htmlmin==0.11.0
 django-jinja==2.10.2
+django-ratelimit==4.1.0
 django-taggit==4.0.0
 django-taggit-labels==0.7.0
 djangorestframework==3.14.0
