@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}Redirecting{% endblock %}
+{% block body %}
+  <main>
+    <h1>Settings saved successfully</h1>
+    <br>Redirecting to {{ redirect_url }}
+{% endblock %}
+{% block script %}
+  <script>
+    setTimeout(function() {
+      window.location.href = '{{ redirect_url }}';
+    }, 2000);
+  </script>
+{% endblock %}

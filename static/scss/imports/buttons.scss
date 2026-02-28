@@ -1,0 +1,152 @@
+.btn-404 {
+  svg {
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  a {
+    margin: 0 5px;
+    text-decoration: none;
+    border: 2px solid var(--color);
+    border-radius: 7px;
+
+    &:link {
+      text-decoration: none !important;
+    }
+
+    &:hover {
+      outline: none;
+      border: 2px solid var(--color);
+      box-shadow: 0 0 10px var(--color);
+      color: var(--color);
+      text-shadow: 0 0 10px var(--color);
+      transform: scale(0.8);
+      transition: all .3s ease-in-out;
+      font-weight: 600;
+    }
+  }
+}
+
+.btb-404 {
+  a:link {
+    text-decoration: none !important;
+  }
+}
+
+#btn-icon {
+  color: var(--color);
+}
+
+#cc {
+  i {
+    transition: all .3s ease-in-out;
+    color: var(--color);
+    
+    &:hover {
+      color: var(--background);
+      transition: all .3s ease-in-out;
+    }
+  }
+}
+
+
+.button-container {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button,
+.button,
+a.button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  margin-bottom: 5px;
+  background: var(--background-secondary);
+  text-decoration: none;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--color);
+
+  &.outline {
+    background: transparent;
+    border-color: var(--background-secondary);
+    box-shadow: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+  &.primary {
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      box-shadow: 0 2px 6px rgba(50, 50, 93, 0.21), 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &.link {
+    background: none;
+    font-size: 1rem;
+  }
+
+  &.small {
+    font-size: .8rem;
+  }
+
+  &.wide {
+    min-width: 200px;
+    padding: 14px 24px;
+  }
+}
+
+.button a,
+.button a:link,
+.button a:visited,
+.button a:hover,
+.button a:focus,
+.button a:active,
+a.button,
+a.button:link,
+a.button:visited,
+a.button:hover,
+a.button:focus,
+a.button:active {
+  color: var(--color) !important;
+  text-decoration: none !important;
+}
+
+a.read-more {
+  display: inline-flex;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 20px 0;
+  font-weight: bold;
+
+  &,
+  &:hover,
+  &:active {
+    .arrow {
+      display: inline-block;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &:hover {
+      .arrow {
+        transform: translateX(5px);
+      }
+    }
+  }
+}

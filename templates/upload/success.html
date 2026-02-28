@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block title %}Upload Success{% endblock %}
+{% block og_title %}Upload {{ sep }} Success{% endblock %}
+{% block style %}
+  #a_b {
+    text-decoration: none
+  }
+
+  .login_btn {
+    transfrom: scale(1.2)
+  }
+{% endblock %}
+{% block body %}
+  <h1 class="token variable">Success</h1>
+  <h2><a href="https://i.mrcheeezz.com/p/{{ upload.image.name }}" {{ new_tab }} class="link-animate">i.mrcheeezz.com/p/{{ upload.image.name }}</a></h2>
+  <figure class="post-cover">
+    <img width="450" src="https://i.mrcheeezz.com/p/{{ upload.image.name }}" alt="Image #{{ upload.id }}" />
+    <figcaption style="text-align: center"> Uploaded Image | {{ upload.image.name }} </figcaption>
+  </figure>
+  <br />
+  <div style="text-align: center; display: flex">
+    <a id="a_b" href="/upload/delete/{{ upload.id }}/">
+      <button class="login_btn">Delete</button>
+    </a>
+    <a>&nbsp;</a>
+    <a id="a_b" style='padding-left: 4px' href="/upload/">
+      <button class="login_btn">Upload Another</button>
+    </a>
+  </div>
+{% endblock %}

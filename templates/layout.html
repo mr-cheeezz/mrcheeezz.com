@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load min filters %}
+{% now "Y" as current_year %}
+{% block alert %}
+  {% if alert.message %}
+    <p>
+      <i class="fa-solid fa-bell"></i> {{ alert.message }} <i class="fa-solid fa-bell"></i>
+    </p>
+  {% endif %}
+{% endblock %}
+{% block header %}
+  <span class="header__inner">
+    <a href="{% if twitch.is_live and twitch.url %}{{ twitch.url }}{% else %}/{% endif %}" class="no-underline-link" {% if twitch.is_live and twitch.url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+      <div class="logo {% if twitch.is_live %}logo--live{% endif %}">
+        <span class="logo__mark">~$</span>
+        <span class="logo__text">{% if home %}&#8203;{% endif %}{{ username|title_if_lowercase }}</span>
+        <span class="logo__cursor"></span>
+      </div>
+    </a>
+    <span class="header__right">
+      <nav class="menu">
+        {% block nav %}
+          <ul class="menu__inner menu__inner--desktop">
+            {% for page in pages.navbar %}
+              {% if active_page == page.name %}
+                {% if active_upper %}
+                  <li class="active">{{ page.name|upper }}</li>
+                {% else %}
+                  <li class="active">{{ page.name|title }}</li>
+                {% endif %}
+              {% else %}
+                <li class="not_active"><a href="/{{ page.name|lower }}">{{ page.name|title }}</a></li>
+              {% endif %}
+            {% endfor %}
+            <ul class="menu__sub-inner">
+              <li class="menu__sub-inner-more-trigger">
+                {% if more %}
+                  <span class="active">
+                    {% if active_upper %}
+                      MORE
+                    {% else %}
+                      More
+                    {% endif %}
+                  </span>
+                {% else %}
+                  <span>More</span>
+                {% endif %}
+                <span class="menu__sub-inner-more-trigger-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+                    <path fill="none" d="M15 8l14.729 14.382L15 35.367" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </li>
+              <ul class="menu__sub-inner-more hidden">
+                {% for page in pages.more %}
+                  {% if active_page == page.name %}
+                    <li>
+                      <a class="active_mobile">{{ page.name|title_if_lowercase }}</a>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a href="{% if page.link %}{{ page.link }}{% else %}/{{ page.name|lower }}{% endif %}" {% if page.link %}{{ new_tab }}{% endif %}>{{ page.name|title_if_lowercase }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </ul>
+          </ul>
+          <ul class="menu__inner menu__inner--mobile">
+            {% for page in pages.mobile %}
+              {% if active_page == page.name %}
+                <li class="active_mobile">{{ page.name|title }}</li>
+              {% else %}
+                <li class="not_active_mobile"><a href="{{ page.link }}" {% if page.external %}{{ new_tab }}{% endif %}>{{ page.name|title_if_lowercase }}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        {% endblock %}
+      </nav>
+      <span class="menu-trigger">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23">
+          <path d="M0 0h24v24H0z" fill="none" />
+          <rect x="3" y="16" width="18" height="2" rx="1" ry="1" />
+          <rect x="3" y="11" width="18" height="2" rx="1" ry="1" />
+          <rect x="3" y="6" width="18" height="2" rx="1" ry="1" />
+        </svg>
+      </span>
+      <div class="tooltip fade" data-title="Toggle Theme" id="theme">
+        <span class="theme-toggle icon">
+          <i id="sun-icon" class="theme-toggler theme-toggler--icon fas fa-sun hidden"></i>
+          <i id="moon-icon" class="theme-toggler theme-toggler--icon fas fa-moon hidden"></i>
+          <i id="half-circle-icon" class="theme-toggler theme-toggler--icon fas fa-circle-half-stroke"></i>
+        </span>
+      </div>
+      {% if user.is_staff %}
+        <div class="tooltip fade" data-title="Admin">
+          <span class="admin icon mid">
+            <a href="/admin">
+              <i class="fas fa-toolbox header-icon"></i>
+            </a>
+          </span>
+        </div>
+      {% endif %}
+      {% if user.is_authenticated %}
+        <div class="tooltip fade" data-title="Logout">
+          <span class="admin icon">
+            <a href="{% url 'logout' %}">
+              <i class="fas fa-right-from-bracket header-icon"></i>
+            </a>
+          </span>
+        </div>
+      {% else %}
+        <div class="tooltip fade" data-title="Login">
+          <span class="admin icon">
+            <a href="{% url 'login' %}">
+              <i class="fas fa-right-to-bracket header-icon"></i>
+            </a>
+          </span>
+        </div>
+      {% endif %}
+      {% if show_user %}
+        {% if user.is_authenticated %}
+          <div class="logged_in fade" data-title="{{ user.first_name }} {{ user.last_name }}">
+            <i class="fas fa-user"></i>
+            <span>{{ user }}</span>
+          </div>
+        {% endif %}
+      {% endif %}
+    </span>
+  </span>
+{% endblock %}
+
+{% block content %}
+  {% block body %}
+    NO CONTENT
+  {% endblock %}
+    <div class="now__playing" id="now-playing-widget" data-user-id="{{ now_playing }}">
+      <a id="np-link" class="now-playing-cover-link" href="#" target="_blank" rel="noopener noreferrer">
+        <img id="np-cover" src="" alt="Album cover">
+      </a>
+    <div class="now-playing-body">
+      <div class="now-playing-label">Now Playing</div>
+      <div id="np-track" class="now-playing-track">Loading...</div>
+      <div id="np-artist" class="now-playing-artist"></div>
+      <div class="now-playing-progress-wrap">
+        <div class="now-playing-progress">
+          <span id="np-progress"></span>
+        </div>
+        <div class="now-playing-times">
+          <span id="np-current">0:00</span>
+          <span id="np-total">0:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="game-status hidden" data-links-enabled="{{ game_links_enabled|yesno:'true,false' }}">
+    <a id="game-icon-link" class="game-icon game-icon-link is-link-disabled" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open profile">
+      <svg width="36" height="36">
+        <use />
+      </svg>
+    </a>
+    <div class="now-playing-body game-info">
+      <div class="now-playing-label status-text">I am currently playing</div>
+      <a id="game-name-link" class="now-playing-track game-name game-name-link is-link-disabled" href="#" target="_blank" rel="noopener noreferrer">Loading...</a>
+      <div class="now-playing-artist game-platform">Platform</div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <div class="footer__inner">
+    <div class="footer__content">
+      <a href="/copyright" class="footer-link">
+        <span title="© {% now "Y" %} {{ username }}. All Rights Reserved. {{ server_location }}."><i class="fa-regular fa-copyright fa-sm"></i> {{ created_year }}-{% now "Y" %}</span>
+      </a>
+      <span>{{ username }}</span>
+      <a href="/changelog" class="footer-link">
+        <span><i class="fa-solid fa-code-fork fa-sm"></i> {{ version }}</span>
+      </a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block css %}
+  {% filter min_css %}  
+    {% block css_import %}{% endblock %}
+
+    :root {
+      --site-accent: {{ theme_accent }};
+    }
+
+    .now__playing {
+      --now-playing-accent: {{ theme_accent }};
+      {% if not home %}
+        {% if black_footer %}
+          --now-playing-bottom: 125px;
+          --now-playing-right: 50px;
+        {% else %}
+          --now-playing-bottom: 35px;
+          --now-playing-right: 40px;
+        {% endif %}
+      {% else %}
+        --now-playing-bottom: 0px;
+        --now-playing-right: 0px;
+      {% endif %}
+      --now-playing-scale: {{ now_playing_size }};
+    }
+
+    {% if black_footer %}
+      .footer {
+        {% if active_page != 'home' and active_page != 'error' %}
+          background: var(--header);
+        {% endif %}
+      }
+    {% endif %}
+    {% block style %}{% endblock %}
+  {% endfilter %}
+{% endblock %}
+
+{% block noscript %}
+  <div class="noscript__banner">
+    <i class="fas fa-triangle-exclamation"></i>
+    <span>&nbsp; Please enable JavaScript for this website to work properly.</span>
+  </div>
+{% endblock %}

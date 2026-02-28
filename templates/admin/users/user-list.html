@@ -1,0 +1,61 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Users{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <div class="admin-row">
+        <div>
+          <h1 class="admin-no-margin">User Management</h1>
+          <p class="admin-muted admin-subtitle">Create, edit, and remove staff users.</p>
+        </div>
+        {% if user.is_superuser %}
+          <a class="admin-btn" href="{% url 'custom_admin:user_add' %}">
+            <i class="fa-solid fa-plus"></i>
+            Add User
+          </a>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-list">
+        {% for u in users %}
+          <div class="admin-item">
+            <div class="admin-row">
+              <div>
+                <h3 class="admin-no-margin">{{ u.username }}</h3>
+                <p class="admin-muted admin-meta-line">
+                  Joined {{ u.date_joined|date:"Y-m-d" }}
+                  {% if u.last_login %} • Last login {{ u.last_login|date:"Y-m-d H:i" }}{% endif %}
+                </p>
+              </div>
+              <div class="admin-actions">
+                {% if u.is_superuser and not user.is_superuser %}
+                  <a class="admin-btn" href="{% url 'admin:auth_user_change' u.id %}">Advanced Admin</a>
+                {% else %}
+                  <a class="admin-btn" href="{% url 'custom_admin:user_edit' u.id %}">
+                    <i class="fa-solid fa-pencil"></i>
+                    Edit
+                  </a>
+                  {% if user.is_superuser and not u.is_superuser %}
+                    <a class="admin-btn danger" href="{% url 'custom_admin:user_delete' u.id %}">
+                      <i class="fa-solid fa-trash"></i>
+                      Delete
+                    </a>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="admin-row admin-row-start admin-top-gap-sm">
+              <span class="admin-badge">Admin: {% if u.is_superuser %}Yes{% else %}No{% endif %}</span>
+              <span class="admin-badge">Staff: {% if u.is_staff %}Yes{% else %}No{% endif %}</span>
+            </div>
+          </div>
+        {% empty %}
+          <p>No users found.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

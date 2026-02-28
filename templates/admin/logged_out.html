@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}Logout{% endblock %}
+{% block og_title %}Logout{% endblock %}
+{% block style %}
+  .hv-btn {
+    background: var(--background-border) !important;
+  }
+
+  .hv-btn:hover {
+    background: var(--color) !important;
+  }
+
+  button, .button, a.button {
+    background: none;
+  }
+{% endblock%}
+{% block body %}
+  <main aria-role="main" class="home border">
+    <h1>Logged Out</h1>
+    <hr />
+    <p>You have been logged out. If this was a mistake,<br> you can log back in. If not, simply return to the home page.</p>
+    <em><span id='countdown'></span></em>
+    <div style="padding-top: 6px">
+      <div class="pagination">
+        <div class="pagination__buttons">
+          <span id="cc" class="button previous">
+            <a href="{% url 'home' %}" class="hv-btn" style="cursor: pointer">
+              <span class="button__icon"><i class="fa-solid fa-home"></i></span>
+              <span class="button__text">Home</span>
+            </a>
+          </span>
+          <span style="margin: 0 7px"></span>
+          <span id="cc" class="button previous">
+            <a href="{% url 'login' %}" class="hv-btn" style="cursor: pointer">
+              <span class="button__icon"><i class="fa-solid fa-right-to-bracket"></i></span>
+              <span class="button__text">Log In</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    var redirectUrl = url;
+    var countdown = 15;
+
+    function updateCountdown() {
+      document.getElementById('countdown').innerText = `Redirecting to home in ${countdown} seconds. Please wait...`;
+      countdown--;
+
+      if (countdown < 0) {
+        window.location.href = redirectUrl;
+      } else {
+        setTimeout(updateCountdown, 1000);
+      }
+    }      
+    updateCountdown();
+  </script>
+{% endblock %}

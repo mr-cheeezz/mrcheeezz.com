@@ -1,0 +1,31 @@
+<div class="pagination">
+  <div>
+    <div class="pagination__title">
+      <span class="pagination__title-h">Last | All Projects | Next</span>
+      <hr>
+    </div>
+    <div class="pagination__buttons">
+      {% if previous_project %}
+        <span class="button previous">
+          <a href="/projects/{{ previous_project.slug }}">
+            <span class="button__icon">←</span>
+            <span class="button__text">{{ previous_project.name }}</span>
+          </a>
+        </span>
+      {% endif %}
+      <span class="button next">
+        <a href="/projects/">
+          <span class="button__text">All Projects</span>
+        </a>
+      </span>
+      {% if next_project %}
+        <span class="button next">
+          <a href="/projects/{{ next_project.slug }}">
+            <span class="button__text">{{ next_project.name }}</span>
+            <span class="button__icon">→</span>
+          </a>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>

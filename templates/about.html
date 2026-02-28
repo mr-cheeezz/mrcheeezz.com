@@ -1,0 +1,171 @@
+{% extends 'layout.html' %}
+{% block title %}About{% endblock %}
+{% block og_title %}About{% endblock %}
+{% block style %}
+  .post {
+    max-width: 62rem;
+  }
+
+  .about-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
+  .about-title {
+    margin: 0;
+  }
+
+  .about-intro {
+    margin: 0;
+    color: var(--color-secondary);
+  }
+
+  .about-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+
+  .about-meta-item {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px 12px;
+    background: var(--background-secondary);
+  }
+
+  .about-meta-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--color-secondary);
+    margin-bottom: 2px;
+  }
+
+  .about-meta-value {
+    margin: 0;
+  }
+
+  .about-settings-btn {
+    margin: 0;
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      {% if meta.set_up %}
+        <div class="about-header">
+          <div>
+            <h1 class="post-title about-title"><span id="welcome"></span>, I'm {{ username }}</h1>
+            <p class="about-intro">Developer building tools, automation, and web projects.</p>
+          </div>
+          {% if user.is_superuser %}
+            <div class="pagination about-settings-btn">
+              <div class="pagination__buttons">
+                <span id="cc" class="button previous">
+                  <a href="/about/settings">
+                    <span class="btn__cng">
+                      <span class="button__icon"><i class="fa-solid fa-gears fa-lg"></i></span>
+                      <span class="button__text">Settings</span>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="border">
+          <h2>Overview</h2>
+          <div class="about-content">
+            <div class="about-meta-grid">
+              {% if meta.show.age and meta.age %}
+                <div class="about-meta-item">
+                  <span class="about-meta-label">Age</span>
+                  <p class="about-meta-value">{{ meta.age }}</p>
+                </div>
+              {% endif %}
+              {% if meta.show.location and meta.location %}
+                <div class="about-meta-item">
+                  <span class="about-meta-label">Location</span>
+                  <p class="about-meta-value">{{ meta.location }}</p>
+                </div>
+              {% endif %}
+              {% if meta.programming.start %}
+                <div class="about-meta-item">
+                  <span class="about-meta-label">Programming Since</span>
+                  <p class="about-meta-value">
+                    {{ meta.programming.start }}
+                    {% if meta.programming.time %}
+                      <small>({{ meta.programming.time }} year{% if meta.programming.time > 1 %}s{% endif %})</small>
+                    {% endif %}
+                  </p>
+                </div>
+              {% endif %}
+              <div class="about-meta-item">
+                <span class="about-meta-label">Local Time</span>
+                <p class="about-meta-value"><span title="{{ timezone }}" id="time"></span> <small>({{ timezone }})</small></p>
+              </div>
+            </div>
+            {% if meta.programming_languages %}
+              <p>
+                Languages:
+                {% for lang in meta.programming_languages %}
+                  {% if forloop.last and not forloop.first %}and {% endif %}
+                  <a class="link-animate-bold" {{ new_tab }} href="/redirect?url={{ lang.link }}">{{ lang.name }}</a>{% if not forloop.last %}, {% else %}.{% endif %}
+                {% endfor %}
+              </p>
+            {% endif %}
+          </div>
+        </div>
+
+        {% for about in ex_content %}
+          <div class="border">
+            <h2>{{ about.title|safe }}</h2>
+            <div class="about-content">
+              <p>{{ about.content|safe }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h2>The owner {{ username|lower }} has not set up the About page yet.</h2>
+        <h3>If you need to reach out, use the <a href="{% url 'contact' %}">contact page</a>.</h3>
+        {% if user.is_superuser %}
+          <p>If you want to configure it now, open <a href="/about/settings">About settings</a>.</p>
+        {% endif %}
+      {% endif %}
+    </article>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    class WelcomeMsg {
+      constructor() {
+        this.messages = {
+          "morning": "Good morning",
+          "afternoon": "Good afternoon",
+          "evening": "Good evening"
+        };
+      }
+
+      getWelcomeMessage() {
+        const currentTime = new Date().getHours();
+        if (currentTime < 12) {
+          return this.messages["morning"];
+        } else if (currentTime < 18) {
+          return this.messages["afternoon"];
+        } else {
+          return this.messages["evening"];
+        }
+      }
+    }
+
+    const welcome = new WelcomeMsg();
+    const welcomeMsgElement = document.getElementById('welcome');
+    const welcomeMessage = welcome.getWelcomeMessage();
+    welcomeMsgElement.textContent = welcomeMessage;
+  </script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Edit Social{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin-top">Edit {{ social.title }}</h1>
+      <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="admin-form-row">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div>{{ field }}</div>
+            {% if field.help_text %}
+              <small class="admin-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              <p class="admin-error">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="admin-actions">
+          <button type="submit" class="admin-btn">Save</button>
+          <a class="admin-btn" href="{% url 'custom_admin:socials_home' %}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+{% endblock %}

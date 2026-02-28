@@ -1,0 +1,328 @@
+form * {
+  font-family: 'Poppins',sans-serif;
+  color: var(--color);
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none
+}
+
+label {
+  display: block;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: 500
+}
+
+input {
+  display: block;
+  height: 50px;
+  width: 250px;
+  background-color: var(--background-secondary);
+  border-radius: 11px;
+  padding: 0 10px;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  border: 3px solid var(--border-color);
+  transition: border-color 0.3s ease
+}
+
+input:focus {
+  border: 2px solid var(--bold-color) !important
+}
+
+input:hover {
+  border: 2px solid #a8a8a8;
+}
+
+input::placeholder {
+  color: var(--color)
+}
+
+input[type="text"], input[type="password"] {
+  font-family: 'Inter'
+}
+
+form input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 54px;
+  height: 30px;
+  min-width: 54px;
+  border-radius: 999px;
+  background: var(--background-secondary);
+  border: 2px solid var(--border-color);
+  display: inline-block;
+  padding: 0;
+  margin-top: 0;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+form input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color);
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+form input[type="checkbox"]:checked {
+  background: var(--site-accent, #fe5186);
+  border-color: var(--site-accent, #fe5186);
+}
+
+form input[type="checkbox"]:checked::before {
+  transform: translateX(24px);
+  background: var(--background);
+}
+
+form input[type="checkbox"]:focus-visible {
+  box-shadow: 0 0 0 3px rgba(254, 81, 134, 0.25);
+}
+
+form input[type="checkbox"]:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.login_btn {
+  margin-top: 50px;
+  background: var(--background);
+  border: 3px solid var(--color) !important;
+  transition: all .3s ease-in-out;
+  color: var(--color);
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.login_btn:hover {
+  background: var(--color);
+  color: var(--background);
+  transition: all .3s ease-in-out;
+  box-shadow: 0 0 15px var(--color);
+}
+
+input[type="password"] {
+  font-weight: bold;
+  padding-right: 30px;
+}
+
+input:-webkit-autofill {
+  background: var(--background-secondary);
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  background: var(--background-secondary);
+}
+
+.password-toggle:hover {
+  color: var(--bold-color);
+  transition: all .2s ease-in-out;
+}
+
+.button {
+  a {
+    &.app {
+      background: var(--background-border) !important;
+    }
+  }
+
+  &.app a {
+    background: var(--background-border);
+  }
+
+  &.app a:hover {
+    background: $color;
+  }
+}
+
+.login_btn,
+.button .app a {
+  margin-bottom: 20px;
+  text-align: left;
+  background: var(--background-border) !important;
+
+  &:hover {
+    background: $color !important;
+  }
+}
+
+.app_btn {
+  display: block;
+  background-color: var(--background-border);
+  color: var(--color);
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: var(--color);
+    color: var(--background);
+    box-shadow: 0 0 12px var(--color);
+  }
+}
+
+.apps_list {
+  .pagination__buttons {
+    display: block;
+  }
+}
+
+
+@media(max-width:684px) {
+  .icon {
+      padding-left: 5px;
+  }
+}
+
+.icon:not(:first-child) {
+  padding-left: 10px
+}
+
+.mid {
+  padding-right: 5px
+}
+
+@media($phone) {
+  .admin {
+      padding-right: 5px
+  }
+}
+
+.admin {
+  padding-left: 7px
+}
+
+.logged_in {
+  right: 30px;
+  position: absolute;
+  font-weight: bold; 
+  user-select: none;
+
+  @media(max-width:1465px) {
+    display: none !important;
+  }
+}
+
+.del a:hover {
+  background: #e45c5c !important;
+  color: var(--background);
+  border-radius: 8px;
+  box-shadow: 0 0 15px #e45c5c !important;
+  border: 3px solid #e45c5c !important;
+}
+
+.active {
+  user-select: none;
+  font-weight: bold;
+  padding-right: 3px;
+}
+
+.active_mobile {
+  user-select: none;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-weight: bold;
+}
+
+.not_active a {
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+}
+
+.not_active a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transform: scale(0.6);
+  transition: all 0.3s ease-out;
+}
+
+.not_active a:hover::after {
+  transform: scale(1);
+  border-color: var(--border-color);
+} 
+
+.not_active_mobile {
+  text-align: center;
+}
+
+.border {
+  margin-top: 20px !important; 
+  border: 3px solid var(--border-color); 
+  padding-top: 15px !important;
+  padding: 50px;
+  padding-bottom: 10px !important;
+  border-radius: 10px;
+  background: var(--background-border);
+}
+
+input[type="number"],
+input[type="text"] {
+  font-weight: bold;
+}
+
+.back a:hover {
+  color: var(--background) !important;
+}
+
+/* Admin template utility classes to avoid inline styles */
+.admin-no-margin {
+  margin: 0 !important;
+}
+
+.admin-no-margin-top {
+  margin-top: 0 !important;
+}
+
+.admin-subtitle {
+  margin: 6px 0 0 !important;
+}
+
+.admin-meta-line {
+  margin: 4px 0 0 !important;
+}
+
+.admin-message-strong {
+  margin: 0 !important;
+  font-weight: 700 !important;
+}
+
+.admin-top-gap-sm {
+  margin-top: 10px !important;
+}
+
+.admin-top-gap-md {
+  margin-top: 12px !important;
+}
+
+.admin-row-start {
+  justify-content: flex-start !important;
+  gap: 10px !important;
+}

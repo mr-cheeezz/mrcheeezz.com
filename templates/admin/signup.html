@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block og_title %}Sign Up{% endblock %}
+{% block style %}
+  .border {
+    margin-top: 20px !important; 
+    border: 2px solid var(--border-color); 
+    padding: 75px;
+    padding-top: 10px;
+    border-radius: 10px;
+    background: var(--background-border);
+  }
+
+  .hv-btn {
+    background: var(--background-border) !important;
+  }
+
+  .hv-btn:hover {
+    background: var(--color) !important;
+  }
+
+  input {
+    width: 260px;
+  }
+
+  .login_btn a {
+    padding: medium;
+    text-decoration: none
+  }
+{% endblock%}
+{% block body %}
+  <main aria-role="main" class="home border">
+    <form method="post">
+      <h1>Login</h1>
+      <div>
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" name="username" id="username" required>
+
+        <label for="password">Password</label>
+        <div style="position: relative;">
+          <input type="password" placeholder="Password" name="password" id="password" required>
+          <i class="password-toggle fa-regular fa-eye" onclick="togglePasswordVisibility('password')"></i>
+        </div>
+
+        <div>
+          <input type="submit" value="Log In" class="login_btn hv-btn" style="text-align: center; width: 250px">
+        </div>
+      </div>
+    </form>
+    <div style="padding-top: 5px">
+    {% if error %}
+      <p style="color: #e2777a; font-weight: bold">{{ error }}</p>
+    {% endif %}
+  </main>
+{% endblock%}

@@ -1,0 +1,17 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Delete Instance{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin-top">Delete Instance</h1>
+      <p>Are you sure you want to delete <strong>{{ instance }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <div class="admin-actions">
+          <button class="admin-btn danger" type="submit">Delete</button>
+          <a class="admin-btn" href="{% url 'custom_admin:model_instances' app_name=app_name model_name=model_name %}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+{% endblock %}

@@ -1,0 +1,26 @@
+<div class="pagination">
+  <div>
+    <div class="pagination__title">
+      <span class="pagination__title-h">Read Other Posts</span>
+      <hr>
+    </div>
+    <div class="pagination__buttons">
+      {% if previous_post %}
+        <span class="button previous">
+          <a href="/blog/{{ previous_post.slug }}">
+            <span class="button__icon">←</span>
+            <span class="button__text">{{ previous_post.name|truncatechars:20 }}</span>
+          </a>
+        </span>
+      {% endif %}
+      {% if next_post %}
+        <span class="button next">
+          <a href="/blog/{{ next_post.slug }}">
+            <span class="button__text">{{ next_post.name|truncatechars:20 }}</span>
+            <span class="button__icon">→</span>
+          </a>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>

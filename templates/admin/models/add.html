@@ -1,0 +1,37 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Add Instance{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin-top">Add {{ model_name|title }}</h1>
+      {% if app_name == 'specs' and model_name == 'spec' %}
+        <p class="admin-help">Tip: use <strong>Parts Table</strong> to enter all parts directly in one place (`Part|Part Name` per line). Slug auto-generates when blank.</p>
+      {% elif app_name == 'specs' and model_name == 'part' %}
+        <p class="admin-help">Use short category labels in <strong>Part</strong> (CPU, GPU, RAM) and full product name in <strong>Part name</strong>.</p>
+      {% elif app_name == 'bots' and model_name == 'botinstance' %}
+        <p class="admin-help">Create a bot type first under <strong>Bots / Bot</strong>. Use lowercase Twitch username for <strong>streamer</strong>.</p>
+      {% elif app_name == 'bots' and model_name == 'bot' %}
+        <p class="admin-help">Bot title is public-facing. Slug can be blank and will be generated from title.</p>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="admin-form-row">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div>{{ field }}</div>
+            {% if field.help_text %}
+              <small class="admin-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              <p class="admin-error">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="admin-actions">
+          <button class="admin-btn" type="submit">Save</button>
+          <a class="admin-btn" href="{% url 'custom_admin:model_instances' app_name=app_name model_name=model_name %}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+{% endblock %}

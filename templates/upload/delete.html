@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}Delete Upload{% endblock %}
+{% block og_title %}Upload {{ sep }} Delete {{ sep }} {{ img_upload.image.name }}{% endblock %}
+{% block body %}
+  <h1>Confirm delete</h1>
+  <p>Are you sure you want to delete this image?</p>
+  <img src="https://i.mrcheeezz.com/{{ img_upload.image.name }}" alt="Image to delete">
+  <form method="post" style="display: flex">
+    {% csrf_token %}
+    <button type="submit" class="login_btn">Yes, delete</button>
+    <a>&nbsp;</a>
+    <a>&nbsp;</a>
+    <a href="/upload/success/{{ upload.id }}" style='text-decoration: none'>
+      <button class="login_btn">No, don't delete</button>
+    </a>
+  </form>
+{% endblock %}

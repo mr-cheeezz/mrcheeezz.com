@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load assets filters min %}
+{% load static i18n %}
+{% get_current_language as language %}
+{% get_current_language_bidi as language_bidi %}
+<html lang="{{ language|default:"en-us" }}" dir="{{ language_bidi|yesno:'rtl,ltr,auto' }}">
+  <head>
+    <title>
+      {% block title_all %}
+        {% if not home %}
+          {{ website_name|title_if_lowercase }} {{ sep }} {% block title %}{% endblock %}
+        {% elif error %}
+          {{ error_code }}
+        {% else %}
+          {% if not home_title %}
+            {{ website_name|title_if_lowercase }}
+          {% else %}
+            {{ website_name|title_if_lowercase }} {{ sep }} Home
+          {% endif %}
+        {% endif %}
+      {% endblock %}
+    </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="{{ username|lower }}">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="robots" content="noodp" />
+    <meta name="theme-color" content="{{ theme|upper }}" />
+    <meta name="image" content="{% static 'images/avatars/2.gif' %}">
+    <meta property="og:image" content="{% static 'images/avatars/2.gif' %}">
+    <meta property="og:title" content="{% if active_page == 'home' %}{{ website_name|title_if_lowercase }}{% else %}{{ website_name|title_if_lowercase }} {{ sep }} {% block og_title %}{% endblock %}{% endif %}">
+    <meta property="og:description" content="{% block about %}{{ about }}{% endblock %}">
+    <meta property="og:url" content="https://{{ url }}">
+    {% include "dependencies/flag-icon.html" %}
+    {% include "dependencies/font-awesome.html" %}
+    {% assets "base_scss" %}
+      <link rel="stylesheet" type="text/css" href="{{ ASSET_URL|versioned_asset_path }}" onerror="this.onerror=null;this.href='{{ ASSET_URL }}';">
+    {% endassets %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <style type="text/css">
+      {% block css %}{% endblock %}
+    </style>
+    {% filter min_js %}
+      <script>
+        const url = `https://{{ url }}`; 
+        const now_playing = '{{ now_playing }}';
+        const speed = {{ typing_speed }};
+        const isHome = {{ home|lower }};
+      </script>
+    {% endfilter %}
+  </head>
+  
+  <body>
+    <div class="container">
+      <noscript>
+        {% block noscript %}{% endblock %}
+      </noscript>
+
+      <div class="alert {{ alert.type }}">
+        {% block alert %}{% endblock %}
+      </div>
+      <header class="header">
+        {% block header %}{% endblock %}
+      </header>
+      <div class="content">
+        {% block content %}{% endblock %}
+      </div>
+      <footer class="footer">
+        {% block footer %}{% endblock %}
+      </footer>
+    </div>
+    {% include "dependencies/jquery.html" %}
+    {% filter min_js %}
+      {% block game %}{% endblock %}
+      {% block script %}{% endblock %}
+    {% endfilter %}
+    {% assets "bundle_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL|versioned_asset_path }}" onerror="this.onerror=null;this.src='{{ ASSET_URL }}';"></script>
+    {% endassets %}
+    {% block js_import %}{% endblock %}
+    {% if google_analytics %}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics }}"></script>
+      {% google_analytics %}
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '{{ google_analytics }}');
+        </script>
+      {% endgoogle_analytics %}
+    {% endif %}
+  </body>
+</html>

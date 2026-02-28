@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% block title %}About Settings{% endblock %}
+{% block css_import %}
+  @import "/static/css/post-edit-create.css";
+{% endblock %}
+{% block style %}
+  .post {
+    max-width: 850px !important;
+  }
+  .form-grid {
+    display: grid;
+    gap: 15px;
+  }
+  .form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .form-group > div:last-child {
+    width: 60%;
+  }
+  .form-group textarea,
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+  .form-group textarea {
+    min-height: 130px;
+  }
+  .section-block {
+    border-top: 1px solid var(--border-color);
+    padding-top: 18px;
+    margin-top: 18px;
+  }
+  .errorlist {
+    color: #e45c5c;
+    margin: 8px 0 0;
+    list-style: none;
+    padding-left: 0;
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1>About Page Settings</h1>
+      <div class="border">
+        <form method="post" action="{% url 'about_settings' %}">
+          {% csrf_token %}
+          <h2>Profile Meta</h2>
+          <div class="form-grid">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">
+                  {{ field.label }}
+                  {% if field.field.required %}<span style="color: #e45c5c;">*</span>{% endif %}
+                </label>
+                <div>
+                  {{ field }}
+                  {% if field.errors %}
+                    {{ field.errors }}
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="section-block">
+            <h2>Markdown Sections</h2>
+            <p>Add/edit/remove custom blocks that appear on the About page.</p>
+            {{ formset.management_form }}
+            {% for section_form in formset %}
+              <div class="section-block">
+                {% if section_form.instance.pk %}
+                  <h3>Section #{{ forloop.counter }}</h3>
+                {% else %}
+                  <h3>New Section</h3>
+                {% endif %}
+                {% for hidden in section_form.hidden_fields %}
+                  {{ hidden }}
+                {% endfor %}
+                <div class="form-grid">
+                  {% for field in section_form.visible_fields %}
+                    {% if field.name != "DELETE" %}
+                      <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div>
+                          {{ field }}
+                          {% if field.errors %}
+                            {{ field.errors }}
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                  <div class="form-group">
+                    <label for="{{ section_form.DELETE.id_for_label }}">Delete this section</label>
+                    <div>{{ section_form.DELETE }}</div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div style="display: flex">
+            <button class="login_btn" type="submit">Save Changes</button>
+            <button class="login_btn" id="go_back" style="left: 20px;">Go Back</button>
+          </div>
+        </form>
+      </div>
+    </article>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    document.getElementById('go_back').addEventListener('click', function(event) {
+      event.preventDefault();
+      history.back();
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Site Settings{% endblock %}
+{% block og_title %}Site Settings{% endblock %}
+{% block body %}
+  <article class="post">
+    <h1>Site Settings</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <p>
+          <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+          {{ field }}
+        </p>
+      {% endfor %}
+      <button class="login_btn" type="submit">Save</button>
+    </form>
+  </article>
+{% endblock %}

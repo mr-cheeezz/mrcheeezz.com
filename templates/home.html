@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load assets %}
+{% block title %}Home{% endblock %}
+{% block style %}
+  {% for icon in social %}
+    #{{ icon.id }}:hover i {
+      color: {{ icon.color }};
+      transition: all .2s ease-in-out;
+    }
+
+    #{{ icon.id }} i {
+      transition: all .2s ease-in-out;
+    }
+  {% endfor %}
+{% endblock %}
+{% block body %}
+  <main aria-role="main" class="home">
+    <img src="{% if discord_pfp_url %}{{ discord_pfp_url }}{% elif g and g.pfp %}{{ g.pfp.url }}{% endif %}" class="circle" id="avatar" alt="Avatar" style="max-width: 112px;{% if aura %} box-shadow: 0 0 20px {{ aura }};{% endif %}"/>
+    <h1 class="user">{{ username }}</h1>
+    <p style="font-size: 20px" class="typewrite" data-period="2000" data-type='[ {{ typewrite }} ]'>
+      <span class="wrap"></span>
+    </p>
+    <div class="social-bar">
+      {% for icon in social %}
+        <a href="{{ icon.link }}" {{ new_tab }} title="{{ icon.title }}" class="home-icon" id="{{ icon.id }}" style="color: var(--color)">
+          <i class="{{ icon.icon_class }}" style="font-size: {{ size }}px"></i>
+        </a>
+        &nbsp;&nbsp;
+      {% endfor %}
+    </div>
+  </main>
+{% endblock %}
+{% block js_import %}{% assets "ty_js" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}{% endblock %}

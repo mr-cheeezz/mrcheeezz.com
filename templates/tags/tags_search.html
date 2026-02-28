@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% load blog %}
+{% block title %}Tags {{ sep }} {% if q %}"{{ q }}"{% else %}Search{% endif %}{% endblock %}
+{% block og_title %}Tagged Posts{% endblock %}
+{% block style %}
+  .tagged-post {
+    position: relative;
+    padding-bottom: 40px;
+    padding: 10px;
+    transition: border ease-in-out .1s;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .tagged-post a:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: border 0.5s;
+    z-index: -1;
+  }
+
+  .tagged-post a:hover:before {
+    border-color: var(--border-color);
+  }
+
+  .tagged-post a {
+    display: block;
+    text-decoration: none;
+  }
+
+  .post-date {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+
+  .post-read-time {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .search-bar input[type="text"] {
+    flex: 1;
+    border: none;
+    padding: 5px;
+    outline: none;
+    border-radius: 10px 0px 0px 10px !important;
+    margin-bottom: 13px;
+    border: 2px solid var(--border-color);
+  }
+
+  .search-bar button[type="submit"] {
+    background-color: var(--background-border);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    height: 50px;
+  }
+
+  .t {
+    padding-bottom: 15px;
+  }
+{% endblock %}
+{% block body %}
+  <article class="post on-list">
+    <h1>Tags</h1>
+    {% if not no_search %}
+      <h2>
+        {% if q %}
+          Search for a different tag
+        {% else %}
+          Search for a tag
+        {% endif %}
+      </h2>
+      <form action="{% url 'tagged' %}" method="get" class="search-bar">
+        <input type="text" name="tag" placeholder="Search for tags...">
+        <button type="submit"><i class="fas fa-search fa-xl"></i></button>
+      </form>
+      <small>Tags are case sensitive; use all lowercase.</small>
+    {% endif %}
+
+    {% if q %}
+      {% if not no_search %}<hr>{% endif %}
+      {% for post in posts %}
+        <h2 class="t">
+          {% if no_search %}
+            Posts tagged with <b>{{ tag }}</b>
+          {% else %}
+            Results for <b>{{ tag }}</b>
+          {% endif %}
+        </h2>
+        <div class="tagged-post">
+          <a href="{% url 'blog:post_detail' post.slug %}">
+            <h3>{{ post.name }}</h3>
+            <p>{{ post.body_as_plain_text|slice_words:50 }}...</p>
+            <br>
+            <time class="post-date">{{ post.date|date:"m-d-Y" }}</time>
+            <span class="post-read-time">{{ post.calculated_read_time }} Min Read</span>
+          </a>
+        </div>
+      {% empty %}
+        {% if q == None %}
+          <h2>Please inclue text in your search</h2>
+        {% else %}
+          <h2 class="t">No results for <b>{{ q }}</b></h2>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </article>
+{% endblock %}

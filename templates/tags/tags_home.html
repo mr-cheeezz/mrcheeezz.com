@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% load blog %}
+{% block title %}Tags {{ sep }} Search{% endblock %}
+{% block og_title %}Search for posts by tag{% endblock %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+  <article class="post on-list">
+    {% for post in posts %}
+      <h1 class="t">Posts tagged with <b style="text-decoration: underline">{{ tag }}</b></h1>
+      <div class="tagged-post">
+        <a href="{% url 'blog:post_detail' post.slug %}">
+          <h2>{{ post.name }}</h2>
+          <p>{{ post.body_as_plain_text|slice_words:50 }}...</p>
+          <br>
+          <time class="post-date">{{ post.date|date:"m-d-Y" }}</time>
+          <span class="post-read-time">{{ post.calculated_read_time }} Min Read</span>
+        </a>
+      </div>
+    {% empty %}
+      {% ifchanged %}
+        <h1 class="post-title">There no posts with {{ tag }}.</h1>
+      {% endifchanged %}
+    {% endfor %}
+  </article>
+{% endblock %}

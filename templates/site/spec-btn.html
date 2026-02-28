@@ -1,0 +1,31 @@
+<div class="pagination">
+  <div>
+    <div class="pagination__title">
+      <span class="pagination__title-h">Last | All Specs | Next</span>
+      <hr>
+    </div>
+    <div class="pagination__buttons">
+      {% if previous_spec %}
+        <span class="button previous">
+          <a href="/specs/{{ previous_spec.slug }}">
+            <span class="button__icon">←</span>
+            <span class="button__text">{{ previous_spec.name }} Specs</span>
+          </a>
+        </span>
+      {% endif %}
+      <span class="button next">
+        <a href="/specs/">
+          <span class="button__text">All Specs</span>
+        </a>
+      </span>
+      {% if next_spec %}
+        <span class="button next">
+          <a href="/specs/{{ next_spec.slug }}">
+            <span class="button__text">{{ next_spec.name }} Specs</span>
+            <span class="button__icon">→</span>
+          </a>
+        </span>
+      {% endif %}
+    </div>
+  </div>
+</div>

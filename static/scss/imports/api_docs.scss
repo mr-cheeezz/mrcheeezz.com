@@ -1,0 +1,1001 @@
+.api-docs {
+  width: 100%;
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding-top: 8px;
+}
+
+.api-docs__hero {
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 24px;
+  background:
+    radial-gradient(1200px 320px at 5% -60%, rgba(254, 81, 134, 0.24), transparent 55%),
+    radial-gradient(900px 260px at 95% -40%, rgba(89, 141, 255, 0.18), transparent 55%),
+    var(--background-secondary);
+}
+
+.api-docs__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--color-secondary);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.api-docs__title {
+  margin: 8px 0 6px;
+}
+
+.api-docs__subtitle {
+  margin: 0;
+  color: var(--color-secondary);
+}
+
+.api-docs__links {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--color);
+  background: var(--background);
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: var(--color);
+  }
+}
+
+.api-docs__swagger,
+.api-docs__guide {
+  margin-top: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(0, 0, 0, 0.08)),
+    var(--background-secondary);
+}
+
+.api-docs__toc {
+  margin-top: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 16px;
+  background:
+    radial-gradient(1200px 260px at 100% -120%, rgba(254, 81, 134, 0.18), transparent 58%),
+    var(--background-secondary);
+}
+
+.api-docs__toc h2 {
+  margin: 0 0 12px;
+}
+
+.api-docs__toc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.api-docs__toc-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--background);
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--color) !important;
+  text-decoration: none !important;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.api-docs__toc-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--site-accent, var(--color));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--site-accent, #fe5186) 36%, transparent);
+}
+
+#swagger-ui {
+  margin: 0;
+  padding: 0;
+}
+
+#swagger-ui .topbar {
+  display: none !important;
+}
+
+#swagger-ui .swagger-ui,
+#swagger-ui .swagger-ui * {
+  color: var(--color);
+  font-family: "Inter", sans-serif !important;
+  text-shadow: none !important;
+  letter-spacing: 0 !important;
+}
+
+#swagger-ui .swagger-ui .scheme-container,
+#swagger-ui .swagger-ui .opblock-tag,
+#swagger-ui .swagger-ui .opblock,
+#swagger-ui .swagger-ui .opblock .opblock-summary,
+#swagger-ui .swagger-ui .opblock-body,
+#swagger-ui .swagger-ui .responses-wrapper,
+#swagger-ui .swagger-ui .responses-inner,
+#swagger-ui .swagger-ui table tbody tr td,
+#swagger-ui .swagger-ui table thead tr th,
+#swagger-ui .swagger-ui .model-box {
+  background: color-mix(in srgb, var(--background) 92%, #000 8%) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-tag {
+  margin: 0 !important;
+  padding: 14px 8px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+}
+
+#swagger-ui .swagger-ui .opblock {
+  border-radius: 12px !important;
+  margin: 14px 0 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+#swagger-ui .swagger-ui .opblock .opblock-summary {
+  min-height: 60px !important;
+  padding: 10px 12px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  border-radius: 8px !important;
+  min-width: 88px !important;
+  justify-content: center !important;
+  font-weight: 700 !important;
+  border: 0 !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path {
+  font-size: 1.02rem !important;
+  font-weight: 700 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-description {
+  color: var(--color) !important;
+  opacity: 0.82 !important;
+  font-weight: 500 !important;
+}
+
+#swagger-ui .swagger-ui .responses-inner h4,
+#swagger-ui .swagger-ui .opblock-section-header h4,
+#swagger-ui .swagger-ui .parameters-container h4 {
+  color: var(--color) !important;
+}
+
+/* Reset global site table/form styles that break Swagger layout */
+#swagger-ui .swagger-ui table {
+  table-layout: auto !important;
+  width: 100% !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+#swagger-ui .swagger-ui table th,
+#swagger-ui .swagger-ui table td {
+  vertical-align: top !important;
+  line-height: 1.35 !important;
+  font-size: .95rem !important;
+}
+
+#swagger-ui .swagger-ui .parameters-col_name {
+  width: 28% !important;
+  min-width: 220px !important;
+}
+
+#swagger-ui .swagger-ui .parameter__name,
+#swagger-ui .swagger-ui .parameter__type,
+#swagger-ui .swagger-ui .parameter__in {
+  display: block !important;
+  margin: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-section-header {
+  background: var(--background) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-section-header h4 {
+  color: var(--color) !important;
+  opacity: .92 !important;
+}
+
+#swagger-ui .swagger-ui input[type="text"],
+#swagger-ui .swagger-ui input[type="number"],
+#swagger-ui .swagger-ui textarea,
+#swagger-ui .swagger-ui select {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 40px !important;
+  margin: 0 !important;
+  padding: 8px 10px !important;
+  font-size: .95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  letter-spacing: 0 !important;
+}
+
+#swagger-ui .swagger-ui .parameter__name.required span {
+  color: #ff5a67 !important;
+}
+
+/* Final polish: opblock row alignment + top info badge cleanup */
+#swagger-ui .swagger-ui .info {
+  margin: 0 0 16px !important;
+}
+
+#swagger-ui .swagger-ui .info .title {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  color: var(--bold-color) !important;
+}
+
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version-stamp {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 3px 9px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--border-color) !important;
+  background: color-mix(in srgb, var(--background) 90%, #000 10%) !important;
+  color: var(--color) !important;
+  font-size: .78rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock .opblock-summary {
+  display: grid !important;
+  grid-template-columns: auto minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  column-gap: 12px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  min-height: 34px !important;
+  line-height: 1 !important;
+  padding: 0 14px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path,
+#swagger-ui .swagger-ui .opblock-summary-description {
+  align-self: center !important;
+  line-height: 1.3 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+}
+
+#swagger-ui .swagger-ui .opblock-get .opblock-summary-method {
+  background: #2f80ed !important;
+}
+
+#swagger-ui .swagger-ui .opblock-post .opblock-summary-method {
+  background: #1fbf8f !important;
+}
+
+#swagger-ui .swagger-ui .opblock-put .opblock-summary-method {
+  background: #f59f3a !important;
+}
+
+#swagger-ui .swagger-ui .opblock-delete .opblock-summary-method {
+  background: #f1546f !important;
+}
+
+#swagger-ui .swagger-ui .opblock-patch .opblock-summary-method {
+  background: #8c6df5 !important;
+}
+
+#swagger-ui .swagger-ui .parameters-col_description p,
+#swagger-ui .swagger-ui .response-col_description__inner p,
+#swagger-ui .swagger-ui .response-col_status {
+  color: var(--color) !important;
+  opacity: 0.9 !important;
+}
+
+#swagger-ui .swagger-ui table tbody tr td,
+#swagger-ui .swagger-ui table thead tr th {
+  padding: 12px 10px !important;
+}
+
+#swagger-ui .swagger-ui .tab li button.tablinks {
+  color: var(--color) !important;
+  opacity: 0.9 !important;
+}
+
+#swagger-ui .swagger-ui .try-out__btn,
+#swagger-ui .swagger-ui .execute-wrapper .btn.execute {
+  background: var(--site-accent, #fe5186) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+}
+
+#swagger-ui .swagger-ui .try-out__btn:hover,
+#swagger-ui .swagger-ui .execute-wrapper .btn.execute:hover {
+  filter: brightness(1.08);
+}
+
+#swagger-ui .swagger-ui .btn,
+#swagger-ui .swagger-ui button,
+#swagger-ui .swagger-ui select,
+#swagger-ui .swagger-ui input[type="text"],
+#swagger-ui .swagger-ui input[type="number"],
+#swagger-ui .swagger-ui textarea {
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--background) !important;
+  color: var(--color) !important;
+}
+
+#swagger-ui .swagger-ui a {
+  color: var(--color) !important;
+}
+
+.api-docs__guide h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.api-docs__guide-content {
+  color: var(--color);
+}
+
+@media (max-width: 900px) {
+  .api-docs__hero,
+  .api-docs__swagger,
+  .api-docs__guide {
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  #swagger-ui .swagger-ui .opblock-tag {
+    font-size: 1.2rem !important;
+    padding: 10px 6px !important;
+  }
+}
+
+/* Hard override layer: fix summary row alignment and title badge styling */
+#swagger-ui .swagger-ui .opblock .opblock-summary {
+  grid-template-columns: 96px minmax(0, 1fr) 44px !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px !important;
+}
+
+#swagger-ui .swagger-ui .opblock .opblock-summary > * {
+  min-width: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  height: 34px !important;
+  min-height: 34px !important;
+  margin: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path-description-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-width: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path {
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-description {
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  opacity: 0.78 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-control,
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  align-self: center !important;
+  margin: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--border-color) !important;
+  background: color-mix(in srgb, var(--background) 92%, #000 8%) !important;
+}
+
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp,
+#swagger-ui .swagger-ui .info .title small pre,
+#swagger-ui .swagger-ui .info .title .version pre,
+#swagger-ui .swagger-ui .info .title .version-stamp pre {
+  margin: 0 !important;
+  padding: 3px 9px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--background) 92%, #000 8%) !important;
+  color: var(--color) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+/* Arrow controls polish */
+#swagger-ui .swagger-ui .opblock-summary-control {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 42px !important;
+  height: 42px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--border-color) 82%, var(--site-accent, #fe5186) 18%) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.16)),
+    color-mix(in srgb, var(--background) 90%, #000 10%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.22) !important;
+  transition: border-color .18s ease, transform .18s ease, box-shadow .18s ease, background .18s ease !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow:hover {
+  border-color: color-mix(in srgb, var(--site-accent, #fe5186) 55%, var(--border-color) 45%) !important;
+  transform: translateY(-1px) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 8px 18px rgba(0, 0, 0, 0.3),
+    0 0 0 1px color-mix(in srgb, var(--site-accent, #fe5186) 20%, transparent) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow:active {
+  transform: translateY(0) scale(0.98) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow svg,
+#swagger-ui .swagger-ui .opblock-control-arrow path {
+  fill: var(--color) !important;
+  stroke: var(--color) !important;
+  stroke-width: 1.5px !important;
+  opacity: 0.92 !important;
+}
+
+/* Final makeover layer */
+.api-docs {
+  --api-bg: #111418;
+  --api-surface: #1a1f27;
+  --api-surface-2: #202632;
+  --api-border: #313949;
+  --api-text: #d7ddea;
+  --api-muted: #97a0b5;
+  --api-accent: var(--site-accent, #fe5186);
+}
+
+.api-docs__hero,
+.api-docs__swagger,
+.api-docs__guide,
+.api-docs__toc {
+  background:
+    radial-gradient(900px 260px at 100% -120%, color-mix(in srgb, var(--api-accent) 16%, transparent), transparent 60%),
+    linear-gradient(180deg, color-mix(in srgb, var(--api-surface-2) 78%, #000 22%), color-mix(in srgb, var(--api-surface) 86%, #000 14%)) !important;
+  border: 1px solid var(--api-border) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.26) !important;
+}
+
+#swagger-ui .swagger-ui,
+#swagger-ui .swagger-ui * {
+  color: var(--api-text) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-tag {
+  background: color-mix(in srgb, var(--api-surface-2) 90%, #000 10%) !important;
+  border: 1px solid var(--api-border) !important;
+  border-radius: 12px !important;
+  margin: 18px 0 10px !important;
+  padding: 14px 16px !important;
+  font-size: 1.45rem !important;
+  text-transform: lowercase !important;
+}
+
+#swagger-ui .swagger-ui .opblock {
+  background: color-mix(in srgb, var(--api-surface) 90%, #000 10%) !important;
+  border: 1px solid var(--api-border) !important;
+  border-radius: 14px !important;
+  margin: 12px 0 !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+}
+
+#swagger-ui .swagger-ui .opblock .opblock-summary {
+  background: color-mix(in srgb, var(--api-surface-2) 88%, #000 12%) !important;
+  border-radius: 12px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-path {
+  color: var(--api-text) !important;
+  font-weight: 700 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-description {
+  color: var(--api-muted) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  border-radius: 10px !important;
+  letter-spacing: .02em !important;
+}
+
+#swagger-ui .swagger-ui .info .title {
+  color: #edf2ff !important;
+  font-size: clamp(2.05rem, 2.5vw, 2.7rem) !important;
+  font-weight: 800 !important;
+}
+
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp,
+#swagger-ui .swagger-ui .info .title small pre,
+#swagger-ui .swagger-ui .info .title .version pre,
+#swagger-ui .swagger-ui .info .title .version-stamp pre {
+  border-color: color-mix(in srgb, var(--api-accent) 50%, var(--api-border) 50%) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.14)),
+    color-mix(in srgb, var(--api-surface-2) 88%, #000 12%) !important;
+  color: #f4f7ff !important;
+  padding: 5px 12px !important;
+  font-size: .8rem !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 6px 14px rgba(0, 0, 0, 0.2) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-section-header {
+  background: color-mix(in srgb, var(--api-surface-2) 90%, #000 10%) !important;
+  border-bottom: 1px solid var(--api-border) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-section-header h4,
+#swagger-ui .swagger-ui .responses-inner h4,
+#swagger-ui .swagger-ui .parameters-container h4 {
+  color: #dfe6f6 !important;
+}
+
+/* Neutral restore + table cleanup */
+.api-docs {
+  --api-surface: var(--background-secondary);
+  --api-surface-2: color-mix(in srgb, var(--background-secondary) 85%, #000 15%);
+  --api-border: var(--border-color);
+  --api-text: var(--color);
+  --api-muted: var(--color-secondary);
+}
+
+.api-docs__hero,
+.api-docs__swagger,
+.api-docs__guide,
+.api-docs__toc {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(0, 0, 0, 0.06)),
+    var(--api-surface) !important;
+  border: 1px solid var(--api-border) !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-tag,
+#swagger-ui .swagger-ui .opblock,
+#swagger-ui .swagger-ui .opblock .opblock-summary,
+#swagger-ui .swagger-ui .opblock-section-header,
+#swagger-ui .swagger-ui .responses-wrapper,
+#swagger-ui .swagger-ui .responses-inner {
+  background: var(--api-surface-2) !important;
+  border-color: var(--api-border) !important;
+}
+
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp,
+#swagger-ui .swagger-ui .info .title small pre,
+#swagger-ui .swagger-ui .info .title .version pre,
+#swagger-ui .swagger-ui .info .title .version-stamp pre {
+  border-color: var(--api-border) !important;
+  background: color-mix(in srgb, var(--api-surface-2) 88%, #000 12%) !important;
+  color: var(--api-text) !important;
+  box-shadow: none !important;
+}
+
+/* cleaner tables */
+#swagger-ui .swagger-ui table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  border: 1px solid var(--api-border) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  background: var(--api-surface-2) !important;
+}
+
+#swagger-ui .swagger-ui table th {
+  background: color-mix(in srgb, var(--api-surface-2) 82%, #000 18%) !important;
+  color: var(--api-text) !important;
+  border-bottom: 1px solid var(--api-border) !important;
+  font-weight: 700 !important;
+}
+
+#swagger-ui .swagger-ui table td {
+  background: var(--api-surface-2) !important;
+  color: var(--api-text) !important;
+}
+
+#swagger-ui .swagger-ui table th,
+#swagger-ui .swagger-ui table td {
+  border-top: 0 !important;
+  border-right: 1px solid color-mix(in srgb, var(--api-border) 88%, transparent) !important;
+  padding: 14px 14px !important;
+}
+
+#swagger-ui .swagger-ui table tr > *:last-child {
+  border-right: 0 !important;
+}
+
+#swagger-ui .swagger-ui .parameters-col_name .parameter__name {
+  font-size: 1.12rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+#swagger-ui .swagger-ui .parameter__type,
+#swagger-ui .swagger-ui .parameter__in {
+  color: var(--api-muted) !important;
+  margin-top: 3px !important;
+}
+
+/* Final control cleanup: GET badge + dropdown arrow */
+#swagger-ui .swagger-ui .opblock-summary-method {
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 16px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-control {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--api-border, var(--border-color)) !important;
+  background: color-mix(in srgb, var(--background) 90%, #000 10%) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow:hover {
+  border-color: var(--api-border, var(--border-color)) !important;
+  background: color-mix(in srgb, var(--background) 84%, #000 16%) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow path {
+  fill: none !important;
+  stroke: var(--api-text, var(--color)) !important;
+  stroke-width: 2px !important;
+  opacity: 0.9 !important;
+}
+
+/* prevent double border on version pills */
+#swagger-ui .swagger-ui .info .title small pre,
+#swagger-ui .swagger-ui .info .title .version pre,
+#swagger-ui .swagger-ui .info .title .version-stamp pre,
+#swagger-ui .swagger-ui .info .title small span,
+#swagger-ui .swagger-ui .info .title .version span,
+#swagger-ui .swagger-ui .info .title .version-stamp span {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* final polish: equal top pills + cleaner method/controls */
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp {
+  min-width: 92px !important;
+  height: 34px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 12px !important;
+  font-size: 0.82rem !important;
+  line-height: 1 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  height: 34px !important;
+  min-width: 88px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, #3c96ff, #2f80ed) !important;
+  color: #eaf3ff !important;
+  font-weight: 700 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-control,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button,
+#swagger-ui .swagger-ui .opblock-control-arrow {
+  border-radius: 9px !important;
+  border: 1px solid var(--api-border, var(--border-color)) !important;
+  background: color-mix(in srgb, var(--background) 90%, #000 10%) !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button:hover,
+#swagger-ui .swagger-ui .opblock-control-arrow:hover {
+  background: color-mix(in srgb, var(--background) 84%, #000 16%) !important;
+  border-color: var(--api-border, var(--border-color)) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard svg,
+#swagger-ui .swagger-ui .opblock-control-arrow svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* micro-fix: compact top pills + perfectly centered method text */
+#swagger-ui .swagger-ui .info .title {
+  gap: 8px !important;
+}
+
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp {
+  min-width: 0 !important;
+  height: 30px !important;
+  padding: 0 10px !important;
+}
+
+#swagger-ui .swagger-ui .opblock-summary-method {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  letter-spacing: 0.02em !important;
+  padding: 0 !important;
+}
+
+/* final readability pass: title pills + arrow contrast */
+#swagger-ui .swagger-ui .info .title small,
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 999px !important;
+  background: var(--background-secondary) !important;
+  color: var(--color) !important;
+  min-width: 0 !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  box-shadow: none !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button {
+  background: color-mix(in srgb, var(--background) 78%, #fff 22%) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow svg,
+#swagger-ui .swagger-ui .opblock-control-arrow path,
+#swagger-ui .swagger-ui .opblock-control-arrow polyline,
+#swagger-ui .swagger-ui .opblock-control-arrow line {
+  stroke: var(--color) !important;
+  fill: none !important;
+  opacity: 1 !important;
+  stroke-width: 2.2px !important;
+}
+
+/* absolute final badge fix: remove wrapper bubbles, keep one pill each */
+#swagger-ui .swagger-ui .info .title > small {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: 0 !important;
+  height: auto !important;
+}
+
+#swagger-ui .swagger-ui .info .title .version,
+#swagger-ui .swagger-ui .info .title .version-stamp {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 86px !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 999px !important;
+  background: var(--background-secondary) !important;
+  color: var(--color) !important;
+  box-shadow: none !important;
+  line-height: 1 !important;
+}
+
+#swagger-ui .swagger-ui .info .title .version::before,
+#swagger-ui .swagger-ui .info .title .version::after,
+#swagger-ui .swagger-ui .info .title .version-stamp::before,
+#swagger-ui .swagger-ui .info .title .version-stamp::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* absolute final icon-button fix: no more empty black squares */
+#swagger-ui .swagger-ui .opblock-control-arrow,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button {
+  background: color-mix(in srgb, var(--background) 70%, #fff 30%) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--bold-color) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow:hover,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button:hover {
+  background: color-mix(in srgb, var(--background) 62%, #fff 38%) !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow svg,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button svg {
+  width: 18px !important;
+  height: 18px !important;
+  color: var(--bold-color) !important;
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8px !important;
+  opacity: 1 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow path,
+#swagger-ui .swagger-ui .opblock-control-arrow polyline,
+#swagger-ui .swagger-ui .opblock-control-arrow line,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button path,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button polyline,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button line {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8px !important;
+  opacity: 1 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-tag {
+  text-transform: none !important;
+}
+
+/* Swagger button reset (final): undo conflicting global/button overrides */
+#swagger-ui .swagger-ui .btn,
+#swagger-ui .swagger-ui button {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 7px 12px !important;
+  margin: 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  background: var(--background-secondary) !important;
+  color: var(--color) !important;
+  box-shadow: none !important;
+  line-height: 1.2 !important;
+}
+
+#swagger-ui .swagger-ui .try-out__btn,
+#swagger-ui .swagger-ui .execute-wrapper .btn.execute {
+  background: var(--site-accent, #fe5186) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  padding: 8px 16px !important;
+}
+
+/* only icon buttons are fixed-square */
+#swagger-ui .swagger-ui .opblock-summary-control,
+#swagger-ui .swagger-ui .opblock-control-arrow,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  padding: 0 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow svg,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button svg {
+  width: 16px !important;
+  height: 16px !important;
+  opacity: 1 !important;
+}
+
+#swagger-ui .swagger-ui .opblock-control-arrow path,
+#swagger-ui .swagger-ui .opblock-control-arrow polyline,
+#swagger-ui .swagger-ui .opblock-control-arrow line,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button path,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button polyline,
+#swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard button line {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+  stroke-width: 1.8px !important;
+  opacity: 1 !important;
+}

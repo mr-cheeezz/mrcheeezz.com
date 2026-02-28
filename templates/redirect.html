@@ -1,0 +1,27 @@
+ {% extends 'layout.html' %}
+{% block title_all %}Redirecting...{% endblock %}
+{% block body %}
+  <main>
+    <article class='border'>
+      {% if redirect_url %}
+        <h1>{% if message %}{{ message }}{% else %}You are being redirected{% endif %}</h1>
+        <h2 style="color: var(--color)">Redirecting to <b>{{ redirect_url }}</b></h2>
+        {% if outside_of_domain %}
+          <p>This page is outside of {{ domain }}<br><small>Click the back arrow to go back</small></p>
+        {% endif %}
+      {% else %}
+        <h1>400 Bad Request</h1>
+        <h2><code style="font-size: 1.625rem;">redirect_url</code> is not defined or invalid</h2>
+      {% endif %}
+    </artice>
+  </main>
+{% endblock %}
+{% block script %}
+  {% if redirect_url %}
+    <script>
+      setTimeout(function() {
+        window.location.href = '{{ redirect_url }}';
+      }, {{ await }});
+    </script>
+  {% endif %}
+{% endblock %}

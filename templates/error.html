@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block title %}Error{% endblock %}
+{% block og_title %}Error{% endblock %}
+
+{% block style %}
+  a {
+    transition: all 0.3s ease-in-out
+  }
+{% endblock %}
+{% block body %}
+  <main aria-role="main">
+    <div style="user-select: none">
+      <h1>{{ error_code }}</h1>
+      <p style="font-size: 22px; ">{{ error_message|safe }}</p>
+      {% if extra_message %}
+        <p>{{ extra_message|safe }}</p>
+      {% endif %}
+      {% include 'site/err-btns.html' %}
+    </div>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    document.getElementById('go_home').onclick = function() {
+      window.location.href = `${url}`;
+      return false;
+    }
+  </script>
+  <script>
+    document.getElementById('go_login').onclick = function() {
+      window.location.href = `/accounts/login`;
+      return false;
+    }
+  </script>
+  <script>
+    function refreshPage() {
+      window.location.reload();
+    }
+  </script>
+  <script>
+    document.getElementById('go_back').onclick = function() {
+      window.history.back();
+      return false;
+    };
+  </script>
+{% endblock %}

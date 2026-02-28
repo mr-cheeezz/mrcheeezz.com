@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% load math min blog assets %}
+{% block title %}Legal{% endblock %}
+{% block og_title %}Legal{% endblock %}
+{% block body %}
+  <article class="post on-list">
+    <h1 class="post-title">Copyright Policy</h1>
+    <div class="post-meta">
+      <em>Last Edited {{ last_modified_time|date:"m-d-Y" }} at {{ last_modified_time|date:"H:i:s e" }}</em>
+    </div>
+    <div class="post-content">
+      {{ html_content|safe }}
+    </div>
+  </article>
+{% endblock %}
+{% block js_import %}<script type="text/javascript" src="/static/scripts/doc.js"></script>{% endblock %}

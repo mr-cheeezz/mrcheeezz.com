@@ -1,0 +1,31 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Models{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin">{{ app_name|title }} Models</h1>
+      <p class="admin-muted admin-subtitle">Select a model to manage records.</p>
+      {% if app_name == 'specs' %}
+        <p class="admin-help">Recommended flow: <strong>Part</strong> first, then <strong>Spec</strong>.</p>
+      {% elif app_name == 'bots' %}
+        <p class="admin-help">Recommended flow: <strong>Bot</strong> first, then <strong>Bot instance</strong>.</p>
+      {% endif %}
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-list">
+        {% for model in models %}
+          <div class="admin-item admin-row">
+            <strong>{{ model.model_name|title }}</strong>
+            <a class="admin-btn" href="{% url 'custom_admin:model_instances' app_name=app_name model_name=model.model_name %}">
+              <i class="fa-solid fa-table-list"></i>
+              View Instances
+            </a>
+          </div>
+        {% empty %}
+          <p>No models found.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

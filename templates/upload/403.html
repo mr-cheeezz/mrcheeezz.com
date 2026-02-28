@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% load filters %}
+{% block whole_title %}{{ error_code }} {{ sep }} {{ error_message|title }}{% endblock %}
+{% block og_title %}{{ website_name }} {{ sep }}{{ error_code }}{% endblock %}
+{% block style %}
+  a {
+    transition: all 0.3s ease-in-out
+  }
+{% endblock %}
+{% block body %}
+  <main aria-role="main">
+    <div style="user-select: none">
+      <h1>{{ error_code }}</h1>
+      <p style="font-size: 20px">
+        
+      </p>
+      {% if error_code == 404 %}
+        {% if project or bot or blog %}
+          <p>
+            The 
+              {% if project %}
+                <span>project</span>
+              {% elif bot %}
+                <span>bot</span>
+              {% elif blog %}
+                <span>post</span>
+              {% endif %} 
+            <span class="token tag">
+              {% if project %}
+                <code>{{ requested_url|slice:"10:"|remove_last }}</code>
+              {% elif bot or blog %}
+                <code>{{ requested_url|slice:"6:"|remove_last }}</code>
+              {% endif %}
+            </span>
+            does not exist.
+          </p>
+        {% else %}
+          {% if requested_url == '/error/404.html' %}
+            <p>This is a error on nginx</p>
+          {% else %}
+            <p>
+              The {% if static %}file{% elif media %}image{% else %}page{% endif %} 
+              <code class="token tag">/{{ requested_url|slice:"1:" }}</code> 
+              can't be found.
+            </p>
+          {% endif %}
+          {% if requested_url == "/pc/specs" %}
+            <hr />
+            <p>This page has been moved to <a href="/specs/pc"><code class="totken url">/specs/pc</code></a>
+            <br />
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      {% include 'site/err-btns.html' %}
+    </div>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    document.getElementById('home__href__err').onclick = function() {
+      window.location.href = `${url}`;
+      return false;
+    }
+  </script>
+  <script>
+    function refreshPage() {
+      window.location.reload();
+    }
+  </script>
+  <script>
+    document.getElementById('go__back').onclick = function() {
+      window.location.href = window.history.go(-1);
+      return false;
+    }
+  </script>
+{% endblock %}

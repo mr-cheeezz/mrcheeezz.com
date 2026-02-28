@@ -1,0 +1,17 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Delete User{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin-top">Delete User</h1>
+      <p>Are you sure you want to delete <strong>{{ u.username }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <div class="admin-actions">
+          <button class="admin-btn danger" type="submit">Delete User</button>
+          <a class="admin-btn" href="{% url 'custom_admin:user_list' %}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+{% endblock %}

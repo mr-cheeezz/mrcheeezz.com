@@ -1,0 +1,36 @@
+$transition-duration: .3s;
+$transition-property: transform;
+$transition-timing-function: ease-out;
+
+.home {
+  user-select: none;
+
+  &-icon {
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    transition-duration: $transition-duration;
+    transition-property: $transition-property;
+    transition-timing-function: $transition-timing-function;
+
+    &:hover, &:focus, &:active {
+      transform: translateY(-8px);
+    }
+  }
+}
+
+@keyframes floating {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, 0px);
+  }
+}
+
+.social-bar {
+  padding-top: 5px;
+}

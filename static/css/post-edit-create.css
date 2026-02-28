@@ -1,0 +1,136 @@
+.container {
+  text-align: left;
+}
+
+label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+input[type="text"] {
+  font-weight: bold;
+  font-size: 15px
+}
+
+input[type="url"] {
+  font-weight: bold;
+  font-size: 15px
+}
+
+select {
+  background: var(--background-secondary);
+  color: var(--color);
+  border: 3px solid var(--border-color);
+  border-radius: 11px;
+  padding: 6px 10px;
+  transition: border-color 0.3s ease;
+  font-weight: bold;
+  font-size: 15px;
+  max-height: 50px;
+}
+
+select:focus {
+  border: 3px solid var(--border-color);
+}
+
+input[type="number"] {
+  width: 150px;
+  padding: 7px;
+  font-size: 17px
+}
+
+option:nth-child(even) {
+  background-color: var(--background)
+
+}
+
+option:nth-child(odd) {
+  background-color: var(--background-secondary)
+}
+
+textarea {
+  background: var(--background-secondary);
+  color: var(--color);
+  border: 3px solid var(--border-color);
+  border-radius: 11px;
+  transition: border-color 0.3s ease;
+  padding: 10px;
+  width: 471px; 
+  height: 241px;
+}
+
+textarea:focus {
+  border: 3px solid var(--bold-color)
+}
+
+.custom-upload-btn {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 8px;
+  background-color: var(--background-secondary);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  border: 3px solid var(--border-color);
+  font-weight: bold;
+}
+
+.custom-upload-btn:hover {
+  border: 3px solid var(--bold-color);
+  transition: border-color 0.3s ease;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background-secondary);
+  transition: .4s;
+  border: 2px var(--border-color) solid;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 23px;
+  width: 23px;
+  left: 4px;
+  bottom: 4px;
+  background-color: var(--color);
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #fe5186;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fe5186;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

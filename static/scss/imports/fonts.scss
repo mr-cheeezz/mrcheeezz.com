@@ -1,0 +1,56 @@
+$font-path: "/static/fonts";
+$font-format: "woff2";
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url("#{$font-path}/Inter-Regular.#{$font-format}") format($font-format);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  src: url("#{$font-path}/Inter-Italic.#{$font-format}") format($font-format);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+  src: url("#{$font-path}/Inter-Medium.#{$font-format}") format($font-format);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 600;
+  src: url("#{$font-path}/Inter-MediumItalic.#{$font-format}") format($font-format);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 800;
+  src: url("#{$font-path}/Inter-Bold.#{$font-format}") format($font-format);
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-feature-settings: "liga", "tnum", "case", "calt", "zero", "ss01", "locl";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 800;
+  src: url("#{$font-path}/Inter-BoldItalic.#{$font-format}") format($font-format);
+}

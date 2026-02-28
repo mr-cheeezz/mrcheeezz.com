@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+{% block title %}Specs {{ sep }} {{ specs.name }}{% endblock %}
+{% block og_title %}Specs {{ sep }} {{ specs.name }}{% endblock %}
+{% block style %}
+  .spec-detail__intro {
+    margin: 0 0 16px 0;
+    color: var(--font-color-shade);
+  }
+
+  .spec-table-wrap {
+    border: 1px solid var(--border-color);
+    background: var(--background-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .spec-table-wrap table {
+    margin: 0;
+    border: none;
+    width: 100%;
+  }
+
+  .spec-table-wrap thead th {
+    background: var(--header);
+    border-color: var(--border-color);
+  }
+
+  .spec-table-wrap tfoot td {
+    text-align: center;
+    font-weight: 700;
+    color: var(--font-color-shade);
+    background: var(--header);
+  }
+
+  .spec-gallery {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .spec-photo {
+    border: 1px solid var(--border-color);
+    background: var(--background-border);
+    border-radius: 14px;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .2s ease;
+  }
+
+  .spec-photo:hover {
+    transform: translateY(-2px);
+  }
+
+  .spec-section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+{% endblock %}
+{% block body %}
+<main class="post">
+  <article>
+    <h1 class="post-title">{{ specs.name }} Spec/Part List</h1>
+    <p class="spec-detail__intro">Complete part breakdown for this build.</p>
+    <div>
+      <div class="spec-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>Part Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for spec in specs.parts.all %}
+              <tr>
+                <td>{{ spec.part }}</td>
+                <td>{{ spec.part_name }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            {% with total=specs.parts.all|length %}
+              <tr>
+                <td colspan="2">This {{ specs.name|lower }} list has {{ total }} parts.</td>
+              </tr>
+            {% endwith %}
+          </tfoot>
+        </table>
+      </div>
+      {% if specs.pic %}
+        <p class="spec-section-label"><i class="fa-solid fa-images"></i> Build Photos</p>
+        <div class="spec-gallery">
+          <img class="spec-photo" src="{{ specs.pic.url }}" alt="{{ specs.pic_alt }}" />
+          {% if specs.pic2 %}
+            <img class="spec-photo" src="{{ specs.pic2.url }}" alt="{{ specs.pic2_alt }}" />
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+    {% include 'site/spec-btn.html' %}
+  </article>
+</main>
+{% endblock %}

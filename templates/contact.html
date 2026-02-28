@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load filters %}
+{% block title %}Contact{% endblock %}
+{% block og_title %}Contact{% endblock %}
+{% block style %}
+  .post {
+    max-width: 950px
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1 class="post-title">Contact</h1>
+        <div class="post-content m_border contact-block-list">
+          {% for platform in contact.all %}
+            <div class="border contact-block" {% if forloop.counter|is_odd and forloop.last %}style="flex-basis: 100%"{% endif %}>
+              <h3>{{ platform.title }}</h3>
+              <p>{{ platform.description }}</p>
+              {% if platform.url %}
+                <p style="text-align: center"><a class="link-animate" href="{{ platform.url }}" {{ new_tab }}>{{ platform.display }}</a></p>
+              {% elif platform.user %}
+                <p style="text-align: center">
+                  <a id="link-animate" class="link-animate" data-user="{{ platform.user }}" href="discord://">{{ platform.user }}</a>
+                  <span style="user-select: none"> | </span>
+                  <a class="link-animate" href="{{ platform.server }}" {{ new_tab }}>Server</a>
+                </p>
+              {% endif %}
+            </div>
+          {% empty %}
+            <h2>{{ username|capfirst }} has not set up any way to contact them.</h2>
+          {% endfor %}
+        </div>
+    </article>
+  </main>
+{% endblock %}

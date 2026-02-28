@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Instances{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <div class="admin-row">
+        <div>
+          <h1 class="admin-no-margin">{{ app_name|title }} / {{ model_name|title }}</h1>
+          <p class="admin-muted admin-subtitle">Manage existing records for this model.</p>
+        </div>
+        <a class="admin-btn" href="{% url 'custom_admin:add_instance' app_name=app_name model_name=model_name %}">
+          <i class="fa-solid fa-plus"></i>
+          Add Instance
+        </a>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <div class="admin-list">
+        {% for row in instance_rows %}
+          <div class="admin-item admin-row">
+            <span>
+              <strong>{{ row.instance }}</strong>
+              {% if row.summary %}
+                <small class="admin-muted admin-block">{{ row.summary }}</small>
+              {% endif %}
+            </span>
+            <div class="admin-actions">
+              <a class="admin-btn" href="{% url 'custom_admin:edit_instance' app_name=app_name model_name=model_name pk=row.instance.pk %}">
+                <i class="fa-solid fa-pencil"></i>
+                Edit
+              </a>
+              <a class="admin-btn danger" href="{% url 'custom_admin:delete_instance' app_name=app_name model_name=model_name pk=row.instance.pk %}">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <p>No instances found.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

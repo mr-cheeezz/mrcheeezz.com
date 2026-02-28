@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block title %}Spotify {{ sep }} Success{% endblock %}
+{% block og_title %}Spotify {{ sep }} Success{% endblock %}
+{% block style %}
+  .spotify-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1DB954;
+    color: var(--bold-color);
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border: 3px solid var(--bold-color);
+  }
+
+  .spotify-button i {
+    color: var(--bold-color);
+  }
+
+  .spotify-button:hover {
+    background-color: #18a045;
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article class="post on-list border">
+      {% if user_id %}
+        <h1>Welcome</h1>
+        <h2>Your spotify has ben linked succsessfully</h2>
+        <p style="font-size: 18px !important; display: flex">
+          <span>Your ID is: </span>
+          &nbsp;
+          <code style="font-size: 18px">{{ user_id }}</code>
+        </p>
+      {% else %}
+        <h1>Oopps!</h1>
+        <p>We couldn't find your User ID. Please try linking your spotify again.</p>
+        <a href="/spotify/connect" class="spotify-button">
+          <i class="fab fa-spotify fa-xl" style="padding-right: 5px"></i>Connect Spotify
+        </a>
+      {% endif %}
+    </acrtice>
+  </main>
+{% endblock %}

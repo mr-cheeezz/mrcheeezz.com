@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+{% load assets %}
+{% block title %}Edit Post {{ sep }} {{ post.id }}{% endblock %}
+{% block og_title %}Blog {{ sep }} Edit ({{ post.id }}){% endblock %}
+{% block css_import %}
+  @import "/static/css/post-edit-create.css";
+{% endblock %}
+{% block style %}
+  .post_id {
+    max-width: 140px;
+    border: var(--border-color) 2px solid;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    padding-right: 5px;
+    padding-right: 3px;
+    background: var(--background-border);
+    user-select: none;
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1 class="post-title" style="padding-top: 30px">Edit Post</h1>
+      <p class="post_id">
+        <i style="color: var(--color)" class="fa-regular fa-id-badge"></i> <strong>Post ID: {{ post.id }}</strong>
+      </p>
+      <div class="border">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+        
+          {% for field in form %}
+            {% if field.name != 'cover_image' %}
+              <div class="form-group" style="display: flex; justify-content: space-between;">
+                <label for="{{ field.id_for_label }}">{{ field.label|title }}
+                  {% if field.field.required %}<span style="color: #e45c5c;"> *</span>{% endif %}
+                </label>
+                <div style="margin-top: 23px">
+                  {{ field }}
+                </div>
+              </div>
+              {% if field.help_text %}
+                <small class="help">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if form.cover_image %}
+            <div class="form-group" style="display: flex; justify-content: space-between;">
+              <label for="file-input">Cover Image</label>
+              <label class="custom-upload-btn" for="cover-image-input" style="margin-top: 5px; max-height: 42px;" required>Upload</label>
+            </div>
+            <input id="cover-image-input" type="file" name="{{ form.cover_image.name }}" style="display:none;" />
+            <div id="cover-image-name-display"></div>
+            <small id="rename-message">Your image will be renamed for storage.</small>
+          {% endif %}
+
+          <div style="display: flex;">
+            <button class="login_btn" type="submit">Save Changes</button>
+            <button data-post-id="{{ post.id }}" style="left: 10px" class="login_btn delete_button">Delete</button>
+            <button class="login_btn" id="back" style="left: 20px">Go Back</button>
+          </div>
+        </form>
+      </div>
+    </article>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    $('.delete_button').click(function(e) {
+      e.preventDefault();
+      var postId = $(this).data('post-id');
+      var userConfirmation = confirm("Are you sure you want to delete this post?");
+      if(userConfirmation){
+        $.ajax({
+          url: '/blog/delete/' + postId + '/',
+          type: 'POST',
+          dataType: 'json',
+          success: function(response) {
+            if (response.success) location.reload();
+          }
+        });
+      }
+    });
+    $(document).ready(function() {
+      $('#cover-image-input').change(function() {
+        var filename = $(this).val().split('\\').pop();
+        if(filename) {
+            $('#cover-image-name-display').text('Selected: ' + filename).addClass('visible');
+            $('#rename-message').addClass('visible');
+        } else {
+            $('#cover-image-name-display').text('');
+            $('#rename-message').removeClass('visible');
+        }
+      });
+    });
+  </script>
+  <script>
+    document.getElementById('back').onclick = function() {
+      window.location.href = `${url}/blog`;
+      return false;
+    }
+  </script>
+{% endblock %}

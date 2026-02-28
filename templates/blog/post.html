@@ -1,0 +1,286 @@
+{% extends 'layout.html' %}
+{% load math min blog assets %}
+{% block title %}Blog {{ sep }} {{ post.name|title }}{% endblock %}
+{% block og_title %}Blog {{ sep }} {{ post.name|truncatechars:12 }}{% endblock %}
+{% block about %}{{ post.body_as_plain_text|slice_words:50 }}...{% endblock %}
+{% block style %}
+  .button {
+    max-width: none !important;
+  }
+
+  .mj {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+    padding: 20px;
+    margin: 20px auto
+  }
+
+  .if {
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  }
+
+  .del a:hover {
+    background: #e45c5c !important;
+    color: var(--background);
+    border-radius: 8px;
+    box-shadow: 0 0 15px #e45c5c !important;
+    border: 3px solid #e45c5c !important;
+  }
+
+  .collapsable-code__toggle .toggle-expand {
+    display: none;
+    color: var(--color);
+  }
+
+  .collapsable-code__toggle .toggle-collapse {
+    display: inline-block;
+    color: var(--color);
+  }
+
+  .collapsable-code > input:checked ~ label .collapsable-code__toggle .toggle-expand {
+    display: inline-block;
+  }
+
+  .collapsable-code > input:checked ~ label .collapsable-code__toggle .toggle-collapse {
+    display: none;
+  }
+
+  .hidden-text .button__text {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 0;
+    overflow: hidden;
+    text-overflow: clip;
+    max-width: 200px;
+    transition: none;
+  }
+
+  .hidden-text:hover .button__text {
+    width: 100%;
+  }
+
+  .pop-out-l .button__text {
+    float: right;
+  }
+
+  .button, .button__icon, .button__text, .btn__cng {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .button {
+    display: inline-block;
+  }
+
+  .button__icon, .button__text {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .pop-out-l .button__text {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    transition: none;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    text-overflow: clip;
+  }
+
+  .pop-out-l .button__icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .modal {
+    z-index: 9999999912 !important;
+  }
+
+  .marj {
+    margin-right: -4px;
+  }
+
+  .post-image img {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+
+  .post-video video {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+  
+  .post-video figcaption {
+    margin-top: -6.5px !important;
+  }
+
+  figure {
+    position: relative;
+    display: inline-block; 
+    margin: 15px; 
+  }
+
+  figcaption {
+    width: 100%; 
+    text-align: center; 
+    white-space: normal; 
+    word-wrap: break-word;
+    background-color: rgba(0, 0, 0, 0.5); 
+    color: white;
+    padding: 5px; 
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    max-width: 100%;
+    margin-top: 0px !important;
+    background-color: var(--background-secondary);
+  }
+{% endblock %}
+{% block body %}
+  <article class="post on-list">
+    {% with admin=user.is_superuser %}
+      <div style="display: flex; justify-content: space-between;">
+        <div>
+          <div class="pagination" style="margin-top: 5px; margin-bottom: 10px">
+            <div class="pagination__buttons">
+              <span id="cc" class="button{% if not admin %} previous{% endif %}">
+                <a href="/blog/" style="overflow: clip">
+                  <span class="btn__cng">
+                    <span class="button__icon"><i class="fa-solid fa-arrow-left fa-lg"></i></span>
+                    {% if not admin %}<span class="button__text">Go Back</span>{% endif %}
+                  </span>
+                </a>
+              </span>
+              {% if admin %}
+                <span id="cc" class="button previous">
+                  <a href="/blog/create" style="overflow: clip">
+                    <span class="btn__cng">
+                      <span class="button__icon"><i class="fa-solid fa-plus fa-lg"></i></span>
+                      <span class="button__text">Create Post</span>
+                    </span>
+                  </a>
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% if admin %}
+          <div>
+            <div class="pagination" style="margin-top: 0px; margin-bottom: 10px">
+              <div class="pagination__buttons">
+                <span id="cc" class="button hidden-text del">
+                  <a data-post-id="{{ post.id }}" class="delete_button pop-out-r" data-hov="Delete" style="overflow: clip; white-space: unset; cursor: pointer">
+                    <span class="btn__cng marj">
+                      <span class="button__icon"><i class="fa-solid fa-trash fa-lg"></i></span>
+                      <span class="button__text">&nbsp;Delete</span>
+                    </span>
+                  </a>
+                </span>
+                <span id="cc" class="button">
+                  <a href="/blog/edit/{{ post.id }}" class="pop-out-l" data-hov="Edit" style="overflow: clip; white-space: unset">
+                    <span class="btn__cng marj-r">
+                      <span class="button__text">Edit&nbsp;</span>
+                      <span class="button__icon"><i class="fa-solid fa-pencil fa-lg"></i></span>
+                    </span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      <hr />
+    {% endwith %}
+    <h1 class="post-title">{{ post.name|title }}</h1>
+    <div class="post-meta">
+      <time class="post-date">{{ post.date|date:"m-d-Y" }}</time>
+      <span class="post-author">— Written By {{ post.author|capfirst }}</span>
+      <span class="post-read-time">
+        — 
+        {% if post.calculated_read_time >= 60 %}
+            {{ post.calculated_read_time|divide:"60" }} Hr
+        {% else %}
+            {{ post.calculated_read_time }} Min
+        {% endif %}
+        Read
+      </span>
+    </div>
+    <span class="post-tags">
+      {% for tag in post.tags.all %}
+        <a href="/tags?tag={{ tag|lower }}&search=false">#{{ tag }}</a>&nbsp;
+      {% endfor %}
+    </span>
+    {% if post.cover_image %}
+      <figure class="post-cover">
+        <img src="{{ post.cover_image.url }}" alt="{{ post.name|title }} Cover" />
+      </figure>
+    {% endif %}
+    <div class="post-content">
+      <h2>Table Of Contents</h2>
+      <aside id="table-of-contents"></aside>
+      <hr />
+      {{ post.body_as_html|safe }}
+      <div id="Modal" class="modal">
+        <span class="close"><i class="fas fa-times"></i></span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+      </div>
+    </div>
+  </article>
+  <div class="mj">
+    {% include 'site/blog-post-btns.html' %}
+  </div>
+{% endblock %}
+{% block js_import %}{% assets "blog_js" %}<script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}{% endblock %}
+{% block script %}
+  {% if user.is_superuser %}
+      <script>
+        $('.delete_button').click(function(e) {
+          e.preventDefault();
+          var postId = $(this).data('post-id');
+          var userConfirmation = confirm("Are you sure you want to delete this post?");
+          if(userConfirmation){
+            $.ajax({
+              url: '/blog/delete/' + postId + '/',
+              type: 'POST',
+              dataType: 'json',
+              success: function(response) {
+                if (response.success) location.reload();
+              }
+            });
+          }
+        });
+      </script>
+  {% endif %}
+  <script>
+    $(document).ready(function() {
+      $('.pop-out-r, .pop-out-l').hover(
+        function() {
+          var $textElement = $(this).find('.button__text');
+          var textWidth = $textElement.text().length * 8 + 4;
+          $textElement.stop().width(0).animate({
+            width: textWidth
+          }, 400);
+        },
+        function() {
+          $(this).find('.button__text').stop().animate({
+            width: '0'
+          }, 400);
+        }
+      );
+    });
+
+    $(document).ready(function() {
+      $('.button__text').each(function() {
+        let currentHtml = $(this).html();
+        let newHtml = currentHtml.replace(/(<i class="fa-solid[^>]+><\/i>)\s+/, "$1");
+        $(this).html(newHtml);
+      });
+    });
+  </script>
+{% endblock %}

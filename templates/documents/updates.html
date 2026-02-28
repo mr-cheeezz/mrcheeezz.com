@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+{% load math min blog assets %}
+{% block title %}Update Log{% endblock %}
+{% block og_title %}Update Log{% endblock %}
+{% block body %}
+  <article class="post on-list">
+    <h1 class="post-title">Update Log</h1>
+    <div class="post-meta">
+      <p>Current Version: <i class="fa-solid fa-code-merge"></i> {{ version_verbose }}</p>
+    </div>
+    <div class="post-content">
+      <h2>List of Versions</h2>
+      <aside id="table-of-contents"></aside>
+      <hr />
+      {{ html_content|safe }}
+      <div id="Modal" class="modal">
+        <span class="close"><i class="fas fa-times"></i></span>
+        <img class="modal-content" id="img">
+        <div id="caption"></div>
+      </div>
+    </div>
+  </article>
+{% endblock %}
+{% block js_import %}<script type="text/javascript" src="/static/scripts/doc.js"></script>{% endblock %}

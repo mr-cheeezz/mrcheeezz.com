@@ -1,0 +1,88 @@
+$header-variable: var(--header);
+
+.header {
+  background: $header-variable;
+  color: var(--color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 18px;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
+    
+    &.sticky {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+  }
+
+  &__right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    @media($phone) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 760px;
+    max-width: 100%;
+
+    > a,
+    > a:hover,
+    > a:focus,
+    > a:active,
+    > a:visited {
+      text-decoration: none;
+    }
+  }
+
+  a,
+  a:link,
+  a:visited,
+  a:hover,
+  a:focus,
+  a:active {
+    color: var(--color) !important;
+    text-decoration: none !important;
+  }
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.theme-toggler {
+  fill: currentColor;
+}
+
+.theme-toggler--icon {
+  color: var(--color);
+  transform: scale(1.15);
+  padding-right: 3px;
+  transition: transform 0.4s cubic-bezier(.6,.04,.98,.34);
+}
+
+.header-icon {
+  transform: scale(1.15);
+}
+
+.no-underline-link,
+.no-underline-link:hover,
+.no-underline-link:focus,
+.no-underline-link:active,
+.no-underline-link:visited {
+  text-decoration: none !important;
+}

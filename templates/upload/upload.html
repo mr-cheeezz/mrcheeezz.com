@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+{% block title %}Upload{% endblock %}
+{% block og_title %}Upload{% endblock %}
+{% block style %}
+  .custom-upload-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--background-secondary);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    border: 3px solid var(--border-color);
+    font-weight: bold
+  }
+
+  .custom-upload-btn:hover {
+    border: 3px solid var(--bold-color);
+    transition: border-color 0.3s ease;
+  }
+  
+  #file-input, #rename-message {
+    display: none;
+  }
+
+  #filename-display, #rename-message {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  #filename-display.visible, #rename-message.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #filename-display {
+    padding-top: 7px;
+    font-weight: bold
+  }
+
+  .expand {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .login_btn {
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+    width: 200px;
+    background: var(--background-border);
+  }
+
+  .login_btn.expand {
+    transition: all 0.3s ease-in-out;
+    width: 200px;
+  }
+
+  .border {
+    margin-top: 70px !important; 
+    border: 2px solid var(--border-color); 
+    padding: 50px; 
+    border-radius: 10px;
+    background: var(--background-border);
+  }
+
+  .error { 
+    color: #e45c5c;
+    font-weight: bold;
+  }
+{% endblock %}
+{% block body %}
+  <div class="border">
+    <h1>Upload</h1>
+    <p>This uploads to <a href="http://i.mrcheeezz.com" class="link-animate" {{ new_tab }}>i.mrcheeezz.com</a></p>
+    <small>For instructions for uploaders click configs</small>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+        {% if field.name != 'image' %}
+          <p>
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+              <small class="help">{{ field.help_text }}</small>
+            {% endif %}
+          </p>
+        {% endif %}
+      {% endfor %}
+      <label class="custom-upload-btn" for="file-input" required>Browse</label>
+      <a class="custom-upload-btn" style="margin-left: 10px; text-decoration: none" href="/upload/configs">Configs</a>
+      <input id="file-input" type="file" name="{{ form.image.name }}" />
+      <div id="filename-display"></div>
+      <small id="rename-message">Your file will be renamed to 8 random letters/numbers.</small>
+      <div class="error">{{ field.errors|striptags }}</div>
+      <button type="submit" style="text-align: center" class="login_btn">Upload</button>
+    </form>
+  </div>
+{% endblock %}
+{% block script %}
+<script>
+  $(document).ready(function() {
+    $('#file-input').change(function() {
+      var filename = $(this).val().split('\\').pop();
+      $('.login_btn').addClass('expand');
+      $('#filename-display').text('Upload: ' + filename).addClass('visible');
+      $('#rename-message').addClass('visible');
+    });
+  });
+</script>
+{% endblock %}

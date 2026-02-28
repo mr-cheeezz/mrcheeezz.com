@@ -1,0 +1,175 @@
+{% extends 'layout.html' %}
+{% block title %}Bots {{ sep }} {{ bot.title }}{% endblock %}
+{% block og_title %}Bot {{ sep }} {{ bot.title|title }}{% endblock %}
+{% block style %}
+  .bot-detail {
+    display: grid;
+    gap: 16px;
+  }
+
+  .bot-detail-intro {
+    margin: 0;
+    color: var(--font-color-shade);
+  }
+
+  .bot-detail-head {
+    border: 1px solid var(--border-color);
+    background: var(--background-border);
+    border-radius: 14px;
+    padding: 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .bot-detail-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .bot-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--header);
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 12px;
+  }
+
+  .bot-pill:hover {
+    border-color: var(--site-accent);
+    color: var(--font-color);
+  }
+
+  .bot-instance-list {
+    display: grid;
+    gap: 12px;
+  }
+
+  .bot-instance-card {
+    border: 1px solid var(--border-color);
+    background: var(--background-border);
+    border-radius: 14px;
+    padding: 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .bot-instance-card h3 {
+    margin: 0;
+  }
+
+  .bot-instance-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .bot-status {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: .75rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    color: var(--font-color-shade);
+    background: var(--header);
+  }
+
+  .bot-status.bot-status--down {
+    color: #ff8f8f;
+    border-color: rgba(255, 143, 143, .35);
+    background: rgba(255, 143, 143, .09);
+  }
+
+  .bot-streamer {
+    margin: 0;
+    color: var(--font-color-shade);
+  }
+
+  .bot-instance-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .bot-empty {
+    border: 1px solid var(--border-color);
+    background: var(--background-border);
+    border-radius: 12px;
+    padding: 16px;
+    color: var(--font-color-shade);
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1 class="post-title">{{ bot.title }}</h1>
+      <div class="post-content bot-detail">
+        <div class="bot-detail-head">
+          <p class="bot-detail-intro">Hosted instances for this bot type.</p>
+          <div class="bot-detail-actions">
+            <span class="bot-pill">
+              <i class="fa-solid fa-server"></i>
+              {{ bot.type_list.all|length }} instance{% if bot.type_list.all|length != 1 %}s{% endif %}
+            </span>
+            {% if bot.github_repo %}
+              <a class="bot-pill" target="_blank" rel="noopener noreferrer" href="{{ bot.github_repo }}">
+                <i class="fa-brands fa-github"></i>
+                Source Code
+              </a>
+            {% endif %}
+            <a class="bot-pill" href="/bots/">
+              <i class="fa-solid fa-arrow-left"></i>
+              All Bots
+            </a>
+          </div>
+        </div>
+
+        {% if bot.type_list.all %}
+          <div class="bot-instance-list">
+            {% for bot in bot.type_list.all %}
+              <section class="bot-instance-card">
+                <div class="bot-instance-top">
+                  <h3>{{ bot.name }}</h3>
+                  {% if bot.out_of_commission %}
+                    <span class="bot-status bot-status--down">{{ out_message }}</span>
+                  {% else %}
+                    <span class="bot-status">Active</span>
+                  {% endif %}
+                </div>
+                <p class="bot-streamer">
+                  <i class="fa-solid fa-user"></i>
+                  {{ bot.streamer_display|capfirst }}
+                </p>
+                <div class="bot-instance-links">
+                  <a class="bot-pill" {{ new_tab }} href="http://twitch.tv/{{ bot.streamer|lower }}">
+                    <i class="fa-brands fa-twitch"></i>
+                    Twitch
+                  </a>
+                  {% if bot.website %}
+                    <a class="bot-pill" {{ new_tab }} href="/redirect?url={{ bot.website }}">
+                      <i class="fa-solid fa-link"></i>
+                      {% if bot.website_name %}{{ bot.website_name }}{% else %}Website{% endif %}
+                    </a>
+                  {% endif %}
+                </div>
+              </section>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="bot-empty">
+            No instances configured for this bot yet.
+          </div>
+        {% endif %}
+      </div>
+    </article>
+  </main>
+{% endblock %}

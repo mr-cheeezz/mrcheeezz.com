@@ -1,0 +1,11 @@
+#cc {
+  i {
+    transition: all .3s ease-in-out;
+    color: var(--color);
+
+    &:hover {
+      color: var(--background);
+      transition: all .3s ease-in-out;
+    }
+  }
+}

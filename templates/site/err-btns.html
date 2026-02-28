@@ -1,0 +1,33 @@
+<div class="pagination" style="margin-top: 6px">
+  <div class="pagination__buttons">
+    <span id="cc" class="button previous" style="max-width: none;">
+      <a href="/">
+        <span class="button__icon"><i id="btn-icon" class="fas fa-home fa-lg"></i></span>
+        <span class="button_text">Home</span>
+      </a>
+    </span>
+    {% if error_code == 401 %}
+      <span id="cc" class="button previous">
+        <a href="/accounts/login">
+          <span class="button__icon"><i id="btn-icon" class="fas fa-right-to-bracket"></i></span>
+          <span class="button_text">Login</span>
+        </a>
+      </span>
+    {% endif %}
+    {% if error_code == 404 %}
+      <span id="cc" class="button previous">
+        <a id="go_back">
+          <span class="button__icon"><i id="btn-icon" class="fas fa-arrow-left fa-lg"></i></span>
+          <span class="button_text">Go Back</span>
+        </a>
+      </span>
+    {% endif %}
+    {% if error_code == 404 or error_code == 500 %}
+      <span id="cc" class="button">
+        <a onclick="refreshPage()">
+          <span class="button__icon"><i id="btn-icon" class="fa-solid fa-rotate-right fa-lg"></i></span>
+        </a>
+      </span>
+    {% endif %}
+  </div>
+</div>

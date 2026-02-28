@@ -1,0 +1,80 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# --- Virtualenv ---
+env/
+.venv/
+venv/
+ENV/
+pip-wheel-metadata/
+
+# --- Django runtime ---
+*.log
+logs/
+db.sqlite3
+*.sqlite3
+
+# --- Secrets / env files ---
+.env
+.env.*
+config.ini
+*.pem
+*.key
+.python-version
+
+# --- User uploads / generated ---
+media/
+uploads/
+staticfiles/
+static/gen/
+static/.webassets-cache/
+*.map
+*.min.*.map
+
+# If "static/" is built/generated on the server, ignore it too.
+# If it's your source static assets, keep it tracked.
+# static/
+
+# --- Local project overrides ---
+mrcheeezz/mrcheeezz/settings_local.py
+
+# --- Temp/cache/junk ---
+tmp/
+temp/
+.tmp/
+.cache/
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.swp
+*.swo
+
+# --- Editor/OS ---
+.vscode/
+.idea/
+.DS_Store
+.vscode-test/
+.history/
+*.iml
+.viminfo
+.vim_mru_files
+.vimrc
+.bash_history
+.python_history
+.selected_editor
+
+# --- Local machine files (accidentally created in repo root) ---
+.gitconfig
+.ssh/
+.config/

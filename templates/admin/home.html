@@ -1,0 +1,85 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Home{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <div class="admin-row">
+        <div>
+          <h1 class="admin-no-margin">Control Center</h1>
+          <p class="admin-muted admin-subtitle">Fast access to logs, socials, settings, and content models.</p>
+        </div>
+        <div class="admin-actions">
+          {% if user.is_superuser %}
+            <a class="admin-btn" href="/a/">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              Advanced Admin
+            </a>
+          {% endif %}
+          <a class="admin-btn" href="{% url 'custom_admin:socials_home' %}">
+            <i class="fa-solid fa-share-nodes"></i>
+            Socials
+          </a>
+          {% if user.is_superuser %}
+            <a class="admin-btn" href="{% url 'custom_admin:settings' %}">
+              <i class="fa-solid fa-gears"></i>
+              Settings
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% if messages %}
+      {% for message in messages %}
+        <section class="admin-card">
+          <p class="admin-message-strong">{{ message }}</p>
+        </section>
+      {% endfor %}
+    {% endif %}
+
+    <section class="admin-grid">
+      <section class="admin-card">
+        <h2>Latest Logs</h2>
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Item</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in latest_logs %}
+              <tr>
+                <td>{{ log.user|default:'N/A' }}</td>
+                <td>{{ log.object_repr|default:'N/A' }}</td>
+                <td>{{ log.action_time|date:"Y-m-d H:i" }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="3">No admin logs yet.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="admin-top-gap-sm">
+          <a class="admin-btn" href="{% url 'custom_admin:logs' %}">View full logs</a>
+        </div>
+      </section>
+
+      {% if user.is_superuser %}
+        <section class="admin-card">
+          <h2>Apps</h2>
+          <div class="admin-list">
+            {% for app_name in app_names %}
+              <div class="admin-item admin-row">
+                <strong>{{ app_name|title }}</strong>
+                <a class="admin-btn" href="{% url 'custom_admin:app_home' app_name=app_name %}">Manage</a>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      {% endif %}
+    </section>
+  </main>
+{% endblock %}

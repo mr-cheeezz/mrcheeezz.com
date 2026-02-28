@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% load assets %}
+{% block title %}Create Post{% endblock %}
+{% block og_title %}Blog {{ sep }} Create{% endblock %}
+{% block css_import %}
+  @import "/static/css/post-edit-create.css";
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1 class="post-title" style="padding-top: 30px">Create Post</h1>
+      <div class="border">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          {% for field in form %}
+            {% if field.name != 'cover_image' %}
+              <div class="form-group" style="display: flex; justify-content: space-between;">
+                <label for="{{ field.id_for_label }}">{{ field.label|title }}
+                  {% if field.field.required %}<span style="color: #e45c5c;"> *</span>{% endif %}
+                </label>
+                <div style="margin-top: 23px">
+                  {{ field }}
+                </div>
+              </div>
+              {% if field.help_text %}
+                <small class="help">{{ field.help_text }}</small>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if form.cover_image %}
+            <div class="form-group" style="display: flex; justify-content: space-between;">
+              <label for="file-input">Cover Image</label>
+              <label class="custom-upload-btn" for="cover-image-input" style="margin-top: 5px; max-height: 42px;" required>Upload</label>
+            </div>
+            <input id="cover-image-input" type="file" name="{{ form.cover_image.name }}" style="display:none;" />
+            <div id="cover-image-name-display"></div>
+            <small id="rename-message">Your image will be renamed for storage.</small>
+          {% endif %}
+
+          <div style="display: flex;">
+            <button class="login_btn" type="submit">Publish</button>
+            <button class="login_btn" id="back" style="left: 10px">Go Back</button>
+          </div>
+        </form>
+      </div>
+    </article>
+  </main>
+{% endblock %}
+{% block script %}
+  <script>
+    $(document).ready(function() {
+      $('#cover-image-input').change(function() {
+        var filename = $(this).val().split('\\').pop();
+        if(filename) {
+            $('#cover-image-name-display').text('Selected: ' + filename).addClass('visible');
+            $('#rename-message').addClass('visible');
+        } else {
+            $('#cover-image-name-display').text('');
+            $('#rename-message').removeClass('visible');
+        }
+      });
+    });
+  </script>
+  <script>
+    document.getElementById('back').onclick = function() {
+      window.location.href = `${url}/blog`;
+      return false;
+    }
+  </script>
+{% endblock %}

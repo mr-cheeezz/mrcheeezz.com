@@ -1,0 +1,103 @@
+[basic]
+user = Mr_Cheeezz
+name = Mr_Cheeezz
+beta = false
+github_pat =
+branch = master
+show_user = true
+website_name = Mr_Cheeezz
+base_name = mrcheeezz
+url = mrcheeezz.com
+debug = false
+allowed_hosts = mrcheeezz.com,www.mrcheeezz.com
+cors_allowed_origins = https://mrcheeezz.com,https://www.mrcheeezz.com
+secret_key = change-me
+discord_user = mr_cheeezz
+twitch_bots = true
+location =
+server =
+email =
+pub_email =
+
+[database]
+use_sqlite = false
+postgresql_name = website
+postgresql_user = postgres
+postgresql_password = change-me
+postgresql_host = localhost
+postgresql_port = 5432
+
+[site]
+programming_start = 2018
+home_title = true
+tw = "I code in different computer languages.", "I'm a student who keeps learning.", "I edit videos and photos.", "I enjoy making things as a developer."
+theme_color = #fe5186
+pfp_type = gif
+avatar_id = 1
+pfp_id = 1
+pfp_aura = auto
+active_caps = true
+title_separator = -
+svg_size = 27
+welcome_messages = Hello,Hey,Greetings,Salutations,Howdy,Hiya,Aloha,Bonjour,Hola,Yo,Top of the morning to you,G'day mate,Salam,Konnichiwa
+border_glow = true
+show_specs = true
+
+[analytics]
+google_analytics =
+
+[spotify]
+client_id =
+client_secret =
+redirect_uri =
+now_playing_user_id =
+now_playing_border = false
+now_playing_size = 10
+now_playing_size_c = 1.10
+show_now_playing = true
+
+[twitch]
+client_id =
+client_secret =
+channel_id =
+
+[steam]
+api_key =
+user_id =
+
+[playstation]
+npsso_token =
+
+[twitter]
+consumer_key =
+consumer_secret =
+handle =
+bearer_token =
+
+[roblox]
+user =
+roblosecurity =
+oauth_client_id =
+oauth_client_secret =
+oauth_redirect_uri =
+oauth_scope = openid profile
+
+[discord]
+client_id =
+client_secret =
+redirect_uri =
+
+[location]
+Country = US
+State = Georgia
+City = Columbus
+US = true
+OutOfUsCountry =
+OutOfUsCity =
+show_location = true
+
+[age]
+birth_year = 2008
+birth_month = 5
+birth_day = 26
+show_age = true

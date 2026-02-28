@@ -1,0 +1,94 @@
+body.light-theme,
+:root {
+  --background: #fff;
+  --background-secondary: #eaeaea;
+  --background-border: #eaeaea;
+  --header-admin: #c3d3e5;
+  --header: #fafafa;
+  --color: #222;
+  --color-secondary: #999;
+  --border-color: #dcdcdc;
+  --bold-color: #000;
+  --github: #171515;
+  --color-inverted: #a9a9b3;
+
+  --phoneWidth: (max-width:684px);
+  --tabletWidth: (max-width:900px);
+}
+
+body.dark-theme {
+  --background: #232425;
+  --background-secondary: #3b3d42;
+  --background-border: #313233;
+  --header-admin: #2c2c57;
+  --header: #1b1c1d;
+  --color: #a9a9b3;
+  --color-secondary: #73747b;
+  --border-color: #4a4b50;
+  --bold-color: #fff;
+  --github: #e8eaea;
+  --color-inverted: #222;
+}
+
+@media(prefers-color-scheme:light) {
+  body:not(.dark-theme) {
+    --background: #fff;
+    --background-secondary: #eaeaea;
+    --background-border: #eaeaea;
+    --header-admin: #c3d3e5;
+    --header: #fafafa;
+    --color: #222;
+    --color-secondary: #999;
+    --border-color: #dcdcdc;
+    --bold-color: #000;
+    --github: #171515;
+    --color-inverted: #a9a9b3;
+  }
+}
+
+@media(prefers-color-scheme:dark) {
+  body:not(.light-theme) {
+    --background: #232425;
+    --background-secondary: #3b3d42;
+    --background-border: #313233;
+    --header-admin: #2c2c57;
+    --header: #1b1c1d;
+    --color: #a9a9b3;
+    --color-secondary: #73747b;
+    --border-color: #4a4b50;
+    --bold-color: #fff;
+    --github: #e8eaea;
+    --color-inverted: #222;
+  }
+}
+
+$phone: "max-width: 684px";
+$tablet: "max-width: 900px";
+
+@mixin linkStyles($color) {
+  box-shadow: inset 0 -0.125rem 0 $color !important;
+  box-sizing: border-box !important;
+  color: $color !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  padding: .125rem .125rem !important;
+  transition: all .2s ease-in-out !important;
+
+  &:hover {
+      box-shadow: inset 0 -2rem 0 0 $color !important;
+      border-radius: 5px 5px 0 0;
+      color: var(--background) !important;
+  }
+}
+
+@mixin greater-icon($stroke-width: 3px, $width: .95rem, $height: 100%) {
+  .greater-icon {
+    width: $width;
+    height: $height;
+
+    path {
+      stroke: currentColor;
+      stroke-width: $stroke-width;
+    }
+  }
+}

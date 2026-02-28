@@ -1,0 +1,68 @@
+.archive {
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  padding: 20px;
+  margin: 0 auto;
+
+  &__group-month {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 0;
+
+    @media(max-width: 684px) {
+      flex-direction: column;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--border-color);
+    }
+  }
+
+  &__group-year {
+    margin-top: 40px;
+
+    @media(max-width: 684px) {
+      margin-top: 20px;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--border-color);
+    }
+  }
+
+  &__group-year-header {
+    margin: 10px 0;
+  }
+
+  &__group-month-header {
+    margin: 25px 0;
+    width: 200px;
+    opacity: .5;
+
+    @media(max-width: 684px) {
+      margin: 10px 0 0;
+    }
+  }
+
+  &__group-posts {
+    width: 100%;
+  }
+
+  &__post {
+    padding: 20px 0;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    &-title {
+      margin: 5px 0;
+
+      a {
+        display: block;
+        text-decoration: none;
+      }
+    }
+  }
+}

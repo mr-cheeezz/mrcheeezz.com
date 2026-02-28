@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% block title %}Log In{% endblock %}
+{% block og_title %}Log In{% endblock %}
+{% block style %}
+  .admin-login-wrap {
+    max-width: 440px;
+    margin: 30px auto;
+    padding: 18px;
+  }
+
+  .admin-login-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-secondary);
+    padding: 20px;
+  }
+
+  .admin-login-card h1 {
+    margin: 0 0 8px;
+  }
+
+  .admin-login-card label {
+    margin-top: 10px;
+    font-weight: 700;
+  }
+
+  .admin-login-input {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    background: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--color);
+    padding: 10px 12px;
+    margin-top: 7px;
+  }
+
+  .admin-login-btn {
+    width: 100%;
+    margin-top: 16px;
+    border: 1px solid var(--border-color);
+    background: var(--background);
+    color: var(--color);
+    border-radius: 10px;
+    font-weight: 700;
+    padding: 10px 12px;
+    cursor: pointer;
+  }
+
+  .admin-login-btn:hover {
+    border-color: var(--color);
+  }
+
+  .admin-login-help {
+    margin: 8px 0 0;
+    color: var(--color-secondary);
+    font-size: 13px;
+  }
+
+  .admin-login-error {
+    color: #e45c5c;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  .password-wrap {
+    position: relative;
+  }
+
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+{% endblock %}
+{% block body %}
+  <main class="admin-login-wrap">
+    <section class="admin-login-card">
+      <h1>Admin Login</h1>
+      <p class="admin-login-help">Use a staff/superuser account to access <code>/admin</code>.</p>
+      <form method="post">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input class="admin-login-input" type="text" placeholder="Username" name="username" id="username" required>
+
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input class="admin-login-input" type="password" placeholder="Password" name="password" id="password" required>
+          <i class="password-toggle far fa-eye" onclick="togglePasswordVisibility('password')"></i>
+        </div>
+
+        <button type="submit" class="admin-login-btn">Log In</button>
+      </form>
+      {% if error %}
+        <p class="admin-login-error">{{ error }}</p>
+      {% endif %}
+    </section>
+  </main>
+{% endblock %}

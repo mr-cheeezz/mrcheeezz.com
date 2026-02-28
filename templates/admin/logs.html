@@ -1,0 +1,73 @@
+{% extends 'admin/layout.html' %}
+{% load filters %}
+{% block sub_title %}Logs{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <div class="admin-row">
+        <div>
+          <h1 class="admin-no-margin">Admin Logs</h1>
+          <p class="admin-muted admin-subtitle">Actions are kept for the current calendar year.</p>
+        </div>
+        <div class="admin-actions">
+          <form id="sortByForm" method="get">
+            <input type="hidden" name="logs_per_page" value="{{ logs_per_page }}">
+            <label for="sort_by">Sort</label>
+            <select id="sort_by" name="sort_by" class="admin-select" onchange="document.getElementById('sortByForm').submit()">
+              {% for option in sort_by_options %}
+                <option value="{{ option }}" {% if selected_sort_by == option %}selected{% endif %}>{{ option|title|underscore_to_space }}</option>
+              {% endfor %}
+            </select>
+          </form>
+
+          <form id="logsPerPageForm" method="get">
+            <input type="hidden" name="sort_by" value="{{ selected_sort_by }}">
+            <label for="logsPerPage">Per page</label>
+            <select id="logsPerPage" name="logs_per_page" class="admin-select" onchange="document.getElementById('logsPerPageForm').submit()">
+              {% for option in options %}
+                <option value="{{ option }}" {% if logs_per_page == option %}selected{% endif %}>{{ option }}</option>
+              {% endfor %}
+            </select>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-card">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>User</th>
+            <th>Object</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in recent_actions %}
+            <tr>
+              <td>{{ action.action_time|date:"Y-m-d H:i"|default:"N/A" }}</td>
+              <td>{{ action.user|default:"N/A" }}</td>
+              <td>{{ action.object_repr|default:"N/A" }}</td>
+              <td>{{ action.change_message|format_change_message|capfirst|is_na }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="4">No log entries.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="admin-row admin-top-gap-md">
+        <span class="admin-muted">Page {{ recent_actions.number }} / {{ recent_actions.paginator.num_pages }}</span>
+        <div class="admin-actions">
+          {% if recent_actions.has_previous %}
+            <a class="admin-btn" href="?page={{ recent_actions.previous_page_number }}&logs_per_page={{ logs_per_page }}&sort_by={{ selected_sort_by }}">Previous</a>
+          {% endif %}
+          {% if recent_actions.has_next %}
+            <a class="admin-btn" href="?page={{ recent_actions.next_page_number }}&logs_per_page={{ logs_per_page }}&sort_by={{ selected_sort_by }}">Next</a>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

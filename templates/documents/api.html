@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+{% block title %}API Documentation{% endblock %}
+{% block og_title %}API Documentation{% endblock %}
+{% block body %}
+  <article class="post on-list api-docs">
+    <section class="api-docs__hero">
+      <p class="api-docs__eyebrow">Public Developer API</p>
+      <h1 class="post-title api-docs__title">Website API Docs</h1>
+      <p class="api-docs__subtitle">Use the interactive explorer below to test endpoints and copy request paths quickly.</p>
+      <div class="api-docs__links">
+        <a href="/api/schema/" class="button-link">Raw OpenAPI Schema</a>
+        <a href="#api-toc" class="button-link">Endpoint TOC</a>
+        <a href="#api-guide" class="button-link">Usage Guide</a>
+      </div>
+    </section>
+
+    <section class="api-docs__toc" id="api-toc">
+      <h2>Endpoint TOC</h2>
+      <div id="api-tag-toc" class="api-docs__toc-grid"></div>
+    </section>
+
+    <section class="api-docs__swagger">
+      <div id="swagger-ui"></div>
+    </section>
+
+    {% if api_markdown %}
+      <section class="api-docs__guide" id="api-guide">
+        <h2>Usage Guide</h2>
+        <div class="api-docs__guide-content">
+          {{ api_markdown|safe }}
+        </div>
+      </section>
+    {% endif %}
+  </article>
+{% endblock %}
+{% block js_import %}
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof SwaggerUIBundle === "undefined") {
+        return;
+      }
+      const tagOrder = ["roblox", "spotify", "steam", "twitch", "7tv", "bttv", "ffz"];
+      const emoteTags = new Set(["7tv", "bttv", "ffz"]);
+      const rankTag = function (tagName) {
+        const name = String(tagName || "").toLowerCase();
+        const idx = tagOrder.indexOf(name);
+        if (idx !== -1) {
+          return [idx];
+        }
+        if (emoteTags.has(name)) {
+          return [999, name];
+        }
+        return [500, name];
+      };
+      const tagLabel = function (tagName) {
+        let name = String(tagName || "").trim().toLowerCase();
+        // Swagger can escape numeric-leading tags like "7tv" as "\37 tv".
+        name = name.replace(/^\\0*37\s*/, "7");
+        name = name.replace(/\s+/g, "");
+        if (name === "bttv") return "BTTV";
+        if (name === "ffz") return "FFZ";
+        if (name === "7tv") return "7TV";
+        return name.charAt(0).toUpperCase() + name.slice(1);
+      };
+      const normalizeSwaggerTagTitles = function () {
+        document.querySelectorAll("#swagger-ui .opblock-tag").forEach(function (el) {
+          const fromId = (el.id || "").match(/^operations-tag-(.+)$/);
+          const raw = fromId ? decodeURIComponent(fromId[1]) : (el.getAttribute("data-tag") || el.textContent || "");
+          const label = tagLabel(raw.trim());
+          const directText = Array.from(el.childNodes).find(function (n) {
+            return n && n.nodeType === Node.TEXT_NODE && String(n.nodeValue || "").trim().length > 0;
+          });
+          if (directText) {
+            if (String(directText.nodeValue || "").trim() !== label) {
+              directText.nodeValue = label;
+            }
+            return;
+          }
+          const span = el.querySelector("span");
+          if (span && span.textContent !== label) {
+            span.textContent = label;
+          }
+        });
+      };
+
+      fetch("{{ schema_url }}")
+        .then(function (response) { return response.json(); })
+        .then(function (schema) {
+          const toc = document.getElementById("api-tag-toc");
+          if (!toc || !schema || !schema.paths) return;
+          const tags = new Set();
+          Object.values(schema.paths).forEach(function (pathItem) {
+            Object.values(pathItem || {}).forEach(function (operation) {
+              (operation.tags || []).forEach(function (tag) {
+                tags.add(String(tag).toLowerCase());
+              });
+            });
+          });
+          const sorted = Array.from(tags).sort(function (a, b) {
+            const ra = rankTag(a);
+            const rb = rankTag(b);
+            if (ra[0] !== rb[0]) return ra[0] - rb[0];
+            return String(ra[1] || a).localeCompare(String(rb[1] || b));
+          });
+          toc.innerHTML = sorted.map(function (tag) {
+            return '<a class="api-docs__toc-link" href="#/default/' + tag + '">' + tagLabel(tag) + '</a>';
+          }).join("");
+        })
+        .catch(function () {});
+
+      window.ui = SwaggerUIBundle({
+        url: "{{ schema_url }}",
+        dom_id: "#swagger-ui",
+        deepLinking: true,
+        tagsSorter: function (a, b) {
+          const ra = rankTag(a);
+          const rb = rankTag(b);
+          if (ra[0] !== rb[0]) return ra[0] - rb[0];
+          return String(ra[1] || a).localeCompare(String(rb[1] || b));
+        },
+        operationsSorter: "alpha",
+        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+        layout: "BaseLayout",
+        onComplete: function () {
+          normalizeSwaggerTagTitles();
+          setTimeout(normalizeSwaggerTagTitles, 200);
+          setTimeout(normalizeSwaggerTagTitles, 700);
+        }
+      });
+    });
+  </script>
+{% endblock %}

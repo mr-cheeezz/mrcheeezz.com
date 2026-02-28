@@ -1,0 +1,55 @@
+{% extends 'admin/layout.html' %}
+{% block sub_title %}Socials{% endblock %}
+{% block body %}
+  <main class="admin-shell">
+    <section class="admin-card">
+      <h1 class="admin-no-margin-top">Social Links</h1>
+      <p class="admin-muted">Pick a platform icon from the list and paste only the profile URL.</p>
+      <form method="post" class="admin-top-gap-sm">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="admin-form-row">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            <div>{{ field }}</div>
+            {% if field.help_text %}
+              <small class="admin-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+              <p class="admin-error">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+        <div class="admin-actions">
+          <button type="submit" class="admin-btn">
+            <i class="fa-solid fa-plus"></i>
+            Add Social
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="admin-card">
+      <h2 class="admin-no-margin-top">Current Socials</h2>
+      <div class="admin-list">
+        {% for item in socials %}
+          <div class="admin-item admin-row">
+            <div>
+              <strong>{{ item.title }}</strong>
+              <p class="admin-muted admin-meta-line">{{ item.link }}</p>
+              <p class="admin-muted admin-meta-line">Visible: {% if item.enabled %}Yes{% else %}No{% endif %} • Order: {{ item.sort_order }}</p>
+            </div>
+            <div class="admin-actions">
+              <a class="admin-btn" href="{% url 'custom_admin:social_edit' item.id %}">Edit</a>
+              <form method="post" action="{% url 'custom_admin:social_delete' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="admin-btn danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        {% empty %}
+          <p>No social links yet.</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

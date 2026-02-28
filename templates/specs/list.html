@@ -1,0 +1,120 @@
+{% extends 'layout.html' %}
+{% block title %}Specs{% endblock %}
+{% block og_title %}Specs{% endblock %}
+{% block style %}
+  .specs-index {
+    display: grid;
+    gap: 18px;
+  }
+
+  .specs-intro {
+    margin: 0;
+    color: var(--font-color-shade);
+  }
+
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    margin-top: 4px;
+  }
+
+  .specs-card {
+    background: var(--background-border);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 18px;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+
+  .specs-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--site-accent);
+  }
+
+  .specs-card__top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .specs-card__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--header);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--site-accent);
+  }
+
+  .specs-card__title {
+    margin: 0;
+    font-size: 1.12rem;
+  }
+
+  .specs-card__meta {
+    margin: 0 0 14px 0;
+    font-size: .95rem;
+    color: var(--font-color-shade);
+  }
+
+  .specs-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--header);
+    padding: 8px 12px;
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .specs-card__cta:hover {
+    color: var(--font-color);
+    border-color: var(--site-accent);
+  }
+
+  .specs-empty {
+    background: var(--background-border);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    color: var(--font-color-shade);
+  }
+{% endblock %}
+{% block body %}
+  <main class="post">
+    <article>
+      <h1 class="post-title">Specs</h1>
+      <div class="post-content specs-index">
+        <p class="specs-intro">All hardware builds in one place. Pick one to view full part details and images.</p>
+        {% if specs %}
+          <div class="specs-grid">
+            {% for spec in specs %}
+              <section class="specs-card">
+                <div class="specs-card__top">
+                  <span class="specs-card__icon"><i class="fa-solid fa-{{ spec.icon }}"></i></span>
+                  <h3 class="specs-card__title">{{ spec.name }}</h3>
+                </div>
+                <p class="specs-card__meta">{{ spec.parts.count }} parts{% if spec.pic or spec.pic2 %} • includes photos{% endif %}</p>
+                <a class="specs-card__cta" href="/specs/{{ spec.slug }}">
+                  <span>View Specs</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </section>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="specs-empty">
+            No specs have been published yet.
+          </div>
+        {% endif %}
+      </div>
+    </article>
+  </main>
+{% endblock %}

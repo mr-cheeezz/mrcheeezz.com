@@ -1,0 +1,139 @@
+$background-variable: var(--background);
+$background-secondary-variable: var(--background-secondary);
+$color-variable: var(--color);
+$color-secondary-variable: var(--color-secondary);
+
+.pagination {
+  margin-top: 50px;
+
+  &__title {
+    display: flex;
+    text-align: center;
+    position: relative;
+    margin: 100px 0 20px;
+
+    &-h {
+      text-align: center;
+      margin: 0 auto;
+      padding: 5px 10px;
+      background: $background-variable;
+      color: $color-secondary-variable;
+      font-size: .8rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: .1em;
+      z-index: 1;
+      user-select: none;
+    }
+
+    hr {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      margin-top: 15px;
+      z-index: 0;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+    a {
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $background-secondary-variable;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  max-width: 40%;
+  padding: 0;
+  cursor: pointer;
+  transition: transform .3s ease-in-out;
+  appearance: none;
+
+  &.next .button__icon {
+    margin-left: 8px;
+  }
+
+  &.previous .button__icon {
+    margin-right: 8px;
+  }
+
+  &+.button {
+    margin-left: 10px;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  a {
+    display: flex;
+    padding: 6px 14px;
+    color: $color-variable;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    background: $background-variable;
+    border: 3px solid $color-variable;
+    transition: all .3s ease-in-out;
+    border-radius: 8px;
+    margin: -1px;
+
+    &:hover,
+    &:hover:visited,
+    &:hover:active,
+    &:hover:focus {
+      background: $color-variable;
+      color: $background-variable;
+      transition: all .3s ease-in-out;
+      border-radius: 8px;
+      box-shadow: 0 0 15px $color-variable;
+    }
+
+    &:visited,
+    &:active,
+    &:focus {
+      color: $color-variable;
+      text-decoration: none;
+    }
+
+    i,
+    .button__text,
+    .button__icon {
+      color: inherit;
+    }
+  }
+}
+
+#cc {
+  i {
+    transition: all .3s ease-in-out;
+    color: $color-variable;
+
+    &:hover {
+      color: $background-variable;
+      transition: all .3s ease-in-out;
+    }
+  }
+}
+
+.button__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

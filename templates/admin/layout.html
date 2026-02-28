@@ -1,0 +1,276 @@
+{% extends 'layout.html' %}
+{% block title %}Admin {{ sep }} {% block sub_title %}Dashboard{% endblock %}{% endblock %}
+{% block og_title %}Admin{% endblock %}
+{% block style %}
+  .header {
+    background: var(--header-admin);
+  }
+
+  .header .sticky {
+    background: none !important;
+  }
+
+  .menu__sub-inner-more {
+    background: var(--header-admin);
+  }
+
+  .admin-shell {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 20px 16px 8px;
+  }
+
+  .admin-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--background-secondary);
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+
+  .admin-card h2,
+  .admin-card h3 {
+    margin-top: 0;
+  }
+
+  .admin-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .admin-muted {
+    color: var(--color-secondary);
+  }
+
+  .admin-block {
+    display: block;
+    margin-top: 4px;
+  }
+
+  .admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--background);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .admin-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .admin-item {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--background);
+    padding: 10px 12px;
+  }
+
+  .admin-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .admin-btn,
+  .admin-btn:visited {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 8px 12px;
+    background: var(--background);
+    color: var(--color);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all .2s ease-in-out;
+  }
+
+  .admin-btn:hover {
+    border-color: var(--color);
+    box-shadow: 0 0 0 1px var(--color);
+  }
+
+  .admin-btn.danger:hover {
+    border-color: #e45c5c;
+    box-shadow: 0 0 0 1px #e45c5c;
+    color: #e45c5c;
+  }
+
+  .admin-input,
+  .admin-select,
+  .admin-textarea {
+    width: 100%;
+    max-width: 100%;
+    background: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--color);
+    padding: 9px 10px;
+    margin-top: 6px;
+  }
+
+  .admin-textarea {
+    min-height: 110px;
+  }
+
+  .admin-shell input:not([type='checkbox']),
+  .admin-shell select,
+  .admin-shell textarea {
+    width: 100%;
+    max-width: 100%;
+    background: var(--background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    color: var(--color);
+    padding: 9px 10px;
+    margin-top: 6px;
+    height: auto;
+  }
+
+  .admin-shell textarea {
+    min-height: 110px;
+  }
+
+  .admin-form-row {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .admin-form-row label {
+    margin-top: 0;
+    font-weight: 700;
+  }
+
+  .admin-help {
+    margin: 0 0 12px 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--background);
+    color: var(--color-secondary);
+    font-size: .95rem;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    border: 1px solid var(--border-color);
+    padding: 9px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .admin-table th {
+    background: var(--background);
+  }
+
+  .admin-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .admin-error {
+    color: #e45c5c;
+    font-weight: 700;
+    margin: 4px 0 0;
+  }
+
+  @media (max-width: 840px) {
+    .admin-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  {% block ex_style %}
+  {% endblock %}
+{% endblock %}
+{% block nav %}
+  <ul class="menu__inner menu__inner--desktop">
+    {% if active_page == 'admin:home' %}
+      <li class="active">{% if active_upper %}HOME{% else %}Home{% endif %}</li>
+    {% else %}
+      <li class="not_active"><a href="{% url 'custom_admin:home' %}">Home</a></li>
+    {% endif %}
+
+    {% if user.is_superuser %}
+      <ul class="menu__sub-inner">
+        <li class="menu__sub-inner-more-trigger">
+          <span>{% if apps %}{% if active_upper %}APPS{% else %}Apps{% endif %}{% else %}Apps{% endif %}</span>
+          <span class="menu__sub-inner-more-trigger-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+              <path fill="none" d="M15 8l14.729 14.382L15 35.367" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </li>
+        <ul class="menu__sub-inner-more hidden">
+          {% for app_name in app_names %}
+            <li><a href="{% url 'custom_admin:app_home' app_name=app_name %}">{{ app_name|title }}</a></li>
+          {% endfor %}
+        </ul>
+      </ul>
+    {% endif %}
+
+    {% if active_page == 'admin:logs' %}
+      <li class="active">{% if active_upper %}LOGS{% else %}Logs{% endif %}</li>
+    {% else %}
+      <li class="not_active"><a href="{% url 'custom_admin:logs' %}">Logs</a></li>
+    {% endif %}
+
+    {% if active_page == 'admin:socials' %}
+      <li class="active">{% if active_upper %}SOCIALS{% else %}Socials{% endif %}</li>
+    {% else %}
+      <li class="not_active"><a href="{% url 'custom_admin:socials_home' %}">Socials</a></li>
+    {% endif %}
+
+    {% if user.is_superuser %}
+      {% if active_page == 'admin:settings' %}
+        <li class="active">{% if active_upper %}SETTINGS{% else %}Settings{% endif %}</li>
+      {% else %}
+        <li class="not_active"><a href="{% url 'custom_admin:settings' %}">Settings</a></li>
+      {% endif %}
+    {% endif %}
+
+    {% if active_page == 'admin:users' %}
+      <li class="active">{% if active_upper %}USERS{% else %}Users{% endif %}</li>
+    {% else %}
+      <li class="not_active"><a href="{% url 'custom_admin:user_list' %}">Users</a></li>
+    {% endif %}
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    <li class="not_active_mobile"><a href="{% url 'custom_admin:home' %}">Home</a></li>
+    <li class="not_active_mobile"><a href="{% url 'custom_admin:logs' %}">Logs</a></li>
+    <li class="not_active_mobile"><a href="{% url 'custom_admin:socials_home' %}">Socials</a></li>
+    {% if user.is_superuser %}
+      <li class="not_active_mobile"><a href="{% url 'custom_admin:settings' %}">Settings</a></li>
+    {% endif %}
+    <li class="not_active_mobile"><a href="{% url 'custom_admin:user_list' %}">Users</a></li>
+  </ul>
+{% endblock %}
+{% block ex_script %}{% endblock %}

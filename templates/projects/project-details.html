@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block title %}Projects {{ sep }} {{ project.name }}{% endblock %}
+{% block og_title %}Projects {{ sep }} {{ project.name|title }}{% endblock %}
+{% block body %}
+<article class="post">
+  <h1 class="post-title">{{ project.name }}</h1>
+  <div class="post-meta">
+    <time class="post-date">{{ project.date|date:"m-d-Y" }}</time>
+    <span class="post-author"> — By: {{ project.author }}</span>
+  </div>
+  <div>
+    <span>Language: </span>
+    <span style="font-weight: bold">
+      {% if project.language == 'Go' %}
+        <span style="color: #00ADD8">{{ project.language }}</span>
+      {% elif project.language == 'Javascript' %}
+        <span style="color: #f1e05a">{{ project.language }}</span>
+      {% elif project.language == 'Python' %}
+        <span style="color: #3572A5">{{ project.language }}</spam>
+      {% else %}
+        <span>{{ project.language }}</span>
+      {% endif %}
+    </span>
+  </div>
+  <hr />
+  <div class="post-content">
+    <h2>About</h2>
+    <p>{{ project.body }}</p>
+    <figure class="post-cover">
+      <img width="450" src="{{ project.image.url }}" alt="{{ project.image_caption }}" />
+      <figcaption style="text-align: center"> {{ project.image_caption }} </figcaption>
+    </figure>
+    <h2>Install</h2>
+    <p>Just run the commands in the order below!</p>
+    <ul style="list-style-type: none">
+      {% for install in project.install_instructions.all %}
+        <li>
+          <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>{{ install }}</span></code></pre></div>
+        </li>
+      {% endfor %}
+    </ul>
+    <br />
+    <h2>Features</h2>
+    <ul>
+      {% for feature in project.features.all %}
+        <li>{{ feature }}</li>
+      {% endfor %}
+    </ul>
+    <br />
+    <h2>Known Issues</h2>
+    <ul>
+      {% for issue in project.known_issues.all %}
+        <li>{{ issue }}</li>
+      {% endfor %}
+    </ul>
+    <br />
+    <h2>Frequently Asked Questions</h2>
+    {% for faq in project.faqs.all %}
+      <ul style="list-style-type: none">
+        <li><b>Question:</b> {{ faq.question }}</li>
+        <li><b>Answer:</b> {{ faq.answer }}</li>
+      </ul>
+    {% endfor %}
+  </div>
+  {% include 'site/proj-btn.html' %}
+</article>
+{% endblock %}
