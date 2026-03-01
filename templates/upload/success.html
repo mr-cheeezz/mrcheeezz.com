@@ -12,9 +12,9 @@
 {% endblock %}
 {% block body %}
   <h1 class="token variable">Success</h1>
-  <h2><a href="https://i.mrcheeezz.com/p/{{ upload.image.name }}" {{ new_tab }} class="link-animate">i.mrcheeezz.com/p/{{ upload.image.name }}</a></h2>
+  <h2><a href="{{ upload.image.url }}" {{ new_tab }} class="link-animate">{{ upload.image.url }}</a></h2>
   <figure class="post-cover">
-    <img width="450" src="https://i.mrcheeezz.com/p/{{ upload.image.name }}" alt="Image #{{ upload.id }}" />
+    <img width="450" src="{{ upload.image.url }}" alt="Image #{{ upload.id }}" />
     <figcaption style="text-align: center"> Uploaded Image | {{ upload.image.name }} </figcaption>
   </figure>
   <br />

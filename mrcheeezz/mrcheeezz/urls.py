@@ -64,8 +64,9 @@ urlpatterns = [
     path('discord_auth', api_views.discord_auth, name='discord_auth'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve uploaded media in all environments as a fallback.
+# In production, nginx can/should still handle /media directly.
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if not settings.DEBUG:
     handler400 = views.error_400

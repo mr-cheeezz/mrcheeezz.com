@@ -77,6 +77,31 @@
     #swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard {
       display: none !important;
     }
+    #swagger-ui .swagger-ui .opblock-tag .expand-operation,
+    #swagger-ui .swagger-ui .opblock-control-arrow {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      min-height: 38px !important;
+      border-radius: 9px !important;
+      border: 1px solid var(--border-color) !important;
+      background: color-mix(in srgb, var(--background) 80%, #fff 20%) !important;
+      color: var(--color) !important;
+      box-shadow: none !important;
+    }
+    #swagger-ui .swagger-ui .opblock-tag .expand-operation:hover,
+    #swagger-ui .swagger-ui .opblock-control-arrow:hover {
+      background: color-mix(in srgb, var(--background) 74%, #fff 26%) !important;
+      border-color: var(--border-color) !important;
+    }
+    #swagger-ui .swagger-ui .opblock-tag .expand-operation svg,
+    #swagger-ui .swagger-ui .opblock-control-arrow svg {
+      width: 16px !important;
+      height: 16px !important;
+      fill: currentColor !important;
+      stroke: currentColor !important;
+      opacity: 1 !important;
+    }
   </style>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
