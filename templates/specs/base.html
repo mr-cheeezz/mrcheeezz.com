@@ -72,18 +72,35 @@
 
   .spec-pagination .button {
     max-width: none;
+    margin-bottom: 0;
   }
 
   .spec-pagination .button a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
     border: 1px solid var(--border-color);
     border-radius: 10px;
     background: var(--background-secondary);
+    color: var(--color) !important;
+    padding: 8px 14px;
     box-shadow: none;
   }
 
   .spec-pagination .button a:hover {
+    color: var(--color) !important;
     border-color: var(--site-accent);
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--site-accent) 35%, transparent);
+  }
+
+  .spec-pagination .button__text,
+  .spec-pagination .button__icon {
+    color: inherit !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline !important;
   }
 {% endblock %}
 {% block body %}

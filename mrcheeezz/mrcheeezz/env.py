@@ -110,6 +110,14 @@ welcome_messages = _get_str(
 border_glow = _get_bool("site", "border_glow", True)
 show_specs = _get_bool("site", "show_specs", True)
 
+# Storage
+media_root = _get_str("storage", "media_root", str(ROOT_DIR / "uploads"))
+media_url = _get_str("storage", "media_url", "/media/")
+if not media_url.startswith("/"):
+    media_url = f"/{media_url}"
+if not media_url.endswith("/"):
+    media_url = f"{media_url}/"
+
 # Integrations / app credentials
 google_analytics = _get_str_multi(
     [
