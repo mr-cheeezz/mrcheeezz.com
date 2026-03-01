@@ -35,6 +35,49 @@
 {% endblock %}
 {% block js_import %}
   <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css">
+  <style>
+    /* Runtime Swagger hard-fix (bypasses stale generated CSS) */
+    #swagger-ui .swagger-ui .opblock .opblock-summary {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      min-height: 56px !important;
+      padding: 10px 12px !important;
+    }
+    #swagger-ui .swagger-ui .opblock-summary-control {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      flex: 1 1 auto !important;
+      width: auto !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      gap: 10px !important;
+    }
+    #swagger-ui .swagger-ui .opblock-summary-path-description-wrapper {
+      display: flex !important;
+      align-items: center !important;
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+      overflow: hidden !important;
+      gap: 10px !important;
+    }
+    #swagger-ui .swagger-ui .opblock-summary-path,
+    #swagger-ui .swagger-ui .opblock-summary-description {
+      display: inline-block !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    #swagger-ui .swagger-ui .opblock-summary .copy-to-clipboard {
+      display: none !important;
+    }
+  </style>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
   <script>
