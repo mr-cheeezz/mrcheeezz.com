@@ -35,7 +35,7 @@ six==1.16.0
 soupsieve==2.4.1
 sqlparse==0.5.4
 systemd-python==235
-urllib3==1.26.14
+urllib3==2.6.3
 uritemplate==4.1.1
 uWSGI==2.0.21; python_version < "3.12"
 webassets==2.0
